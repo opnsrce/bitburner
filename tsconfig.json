@@ -6,8 +6,7 @@
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
         "inlineSourceMap": false,
-        "lib": ["dom", "es2017"],
-        "module": "commonjs",
+        "module": "ESNext",
         "moduleResolution": "node",
         "noImplicitAny": true,
         "noImplicitReturns": true,
@@ -15,7 +14,7 @@
         "outDir": "dist",
         "removeComments": true,
         "strict": true,
-        "target": "es6",
+        "target": "ESNext",
         "typeRoots": ["./node_modules/@types", "./types/**/*.d.ts"]
     }
 }

@@ -1,6 +1,6 @@
 {
     "include": ["src/**/*.ts", "@types/**/*.ts"],
-    "exclude": ["node_modules", "dist", "./types"],
+    "exclude": ["node_modules", "dist", "./types", "src/**/*.spec.ts"],
     "compilerOptions": {
         "declaration": true,
         "esModuleInterop": true,

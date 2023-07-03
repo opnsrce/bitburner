@@ -1,4 +1,4 @@
-import { NS } from "../types";
+import { NS, ParsedArgs } from "../types";
 import { parseArgs, ParseArgsConfig } from "node:util";
 import { FlagSchema } from "../types";
 const getNsMock = (args?: (string | number | boolean)[]) => {
@@ -14,9 +14,7 @@ const getNsMock = (args?: (string | number | boolean)[]) => {
                     return ["n00dles"];
             }
         },
-        flags(schemas: FlagSchema[]) {
-            const args = [...(this.args || [])] as string[];
-
+        flags(schemas: FlagSchema[]): ParsedArgs {
             const convertSchemasToParserOptions = (
                 accumulator: any,
                 schema: FlagSchema

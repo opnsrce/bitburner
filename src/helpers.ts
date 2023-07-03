@@ -1,4 +1,4 @@
-import { NS } from "../types";
+import { NS, ScriptConfig } from "../types";
 
 /**
  * Maps the server network starting from root.
@@ -28,4 +28,13 @@ export const findServers = (
     }
 
     return nodes.sort();
+};
+
+export const parseNetScriptArgs = (ns: NS): ScriptConfig => {
+    const parsedFlags = ns.flags([["target", ""]]);
+
+    return {
+        args: parsedFlags._ as string[],
+        target: parsedFlags.target as string
+    };
 };

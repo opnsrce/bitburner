@@ -5,7 +5,7 @@
         "declaration": true,
         "esModuleInterop": true,
         "forceConsistentCasingInFileNames": true,
-        "inlineSourceMap": true,
+        "inlineSourceMap": false,
         "lib": ["dom", "es2017"],
         "module": "commonjs",
         "moduleResolution": "node",

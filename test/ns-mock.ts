@@ -1,9 +1,12 @@
-import { NS, ParsedArgs } from "../types";
+import { BasicHGWOptions, NS, ParsedArgs } from "../types";
 import { parseArgs, ParseArgsConfig } from "node:util";
 import { FlagSchema } from "../types";
 const getNsMock = (args?: (string | number | boolean)[]) => {
     const nsMock: Partial<NS> = {
         args: args,
+        grow: (host: string, options?: BasicHGWOptions): Promise<number> => {
+            return Promise.resolve(1);
+        },
         scan: (host?: string | undefined): string[] => {
             switch (host) {
                 case "home":

@@ -6,4 +6,14 @@ export type ScriptConfig = {
     target: string;
     /** If true, script will keep running after main operation finishes. */
     keepOpen: boolean;
+    /**
+     * What percentage of getServerMaxMoney() to grow to before terminating.
+     *
+     * @defaultValue
+     * Defaults to 100 (100% of getServerMaxMoney())
+     * @remarks
+     * Only applies to scripts that use ns.grow().
+     * @see {@link NS.getServerMaxMoney}
+     **/
+    growLimit: number;
 };

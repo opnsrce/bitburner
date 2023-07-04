@@ -40,7 +40,8 @@ describe("findServers", () => {
 describe("parseNetScriptArgs", () => {
     let defaultConfig: ScriptConfig = {
         args: [],
-        target: ""
+        target: "",
+        keepOpen: false
     };
 
     describe("When no flags or arguments are set", () => {

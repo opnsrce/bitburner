@@ -31,10 +31,14 @@ export const findServers = (
 };
 
 export const parseNetScriptArgs = (ns: NS): ScriptConfig => {
-    const parsedFlags = ns.flags([["target", ""]]);
+    const parsedFlags = ns.flags([
+        ["target", ""],
+        ["keepOpen", false]
+    ]);
 
     return {
         args: parsedFlags._ as string[],
-        target: parsedFlags.target as string
+        target: parsedFlags.target as string,
+        keepOpen: parsedFlags.keepOpen as boolean
     };
 };

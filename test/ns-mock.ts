@@ -29,10 +29,30 @@ const getNsMock = (args?: (string | number | boolean)[]) => {
                 accumulator[fieldName.replace(/\-/g, "")] = {
                     type: type === "boolean" ? type : "string",
                     multiple: Array.isArray(defaultValue),
-                    default: defaultValue
+                    default:
+                        type === "boolean"
+                            ? defaultValue
+                            : defaultValue.toString()
                 };
 
                 return accumulator;
+            };
+
+            const convertNumericValuesToNumbers = (values: any) => {
+                const valuesClone = {
+                    ...values
+                };
+
+                for (let key in valuesClone) {
+                    const value = valuesClone[key];
+                    const isString =
+                        typeof value === "string" && value.length > 0;
+                    if (isString && !isNaN(Number(value))) {
+                        valuesClone[key] = Number(value);
+                    }
+                }
+
+                return valuesClone;
             };
 
             const { positionals, values } = parseArgs({
@@ -44,7 +64,7 @@ const getNsMock = (args?: (string | number | boolean)[]) => {
 
             return {
                 _: positionals,
-                ...values
+                ...convertNumericValuesToNumbers(values)
             };
         }
     };

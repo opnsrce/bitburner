@@ -30,6 +30,12 @@ export const findServers = (
     return nodes.sort();
 };
 
+/**
+ * Parses the array of arguments passed to NS into a ScriptConfig.
+ *
+ * @param ns - Netscript library instance
+ * @returns Object of parsed script parameters.
+ */
 export const parseNetScriptArgs = (ns: NS): ScriptConfig => {
     const parsedFlags = ns.flags([
         ["target", ""],

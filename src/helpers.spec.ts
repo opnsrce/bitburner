@@ -3,6 +3,8 @@ import getNsMock from "../test/ns-mock";
 import { findServers, parseNetScriptArgs } from "./helpers";
 import { NS, ScriptConfig } from "../types";
 
+import defaultScriptConfig from "../test/default-config";
+
 describe("findServers", () => {
     describe("When the root is defined as 'home'", () => {
         it("should recursively map the network from 'home'", () => {
@@ -38,12 +40,6 @@ describe("findServers", () => {
 });
 
 describe("parseNetScriptArgs", () => {
-    let defaultConfig: ScriptConfig = {
-        args: [],
-        target: "",
-        keepOpen: false
-    };
-
     describe("When no flags or arguments are set", () => {
         let ns: NS;
         const args: (string | number | boolean)[] = [];
@@ -55,7 +51,7 @@ describe("parseNetScriptArgs", () => {
         it("should return the default script config", () => {
             const result = parseNetScriptArgs(ns);
 
-            expect(result).toStrictEqual(defaultConfig);
+            expect(result).toStrictEqual(defaultScriptConfig);
         });
     });
 
@@ -70,7 +66,7 @@ describe("parseNetScriptArgs", () => {
         it("should set the 'target' property in the script config", () => {
             const result = parseNetScriptArgs(ns);
             const expectedConfig: ScriptConfig = {
-                ...defaultConfig,
+                ...defaultScriptConfig,
                 target: "n00dles"
             };
 
@@ -89,7 +85,7 @@ describe("parseNetScriptArgs", () => {
         it("should store the extra parameters in the 'args' property", () => {
             const result = parseNetScriptArgs(ns);
             const expectedConfig: ScriptConfig = {
-                ...defaultConfig,
+                ...defaultScriptConfig,
                 args: ["extra", "more"]
             };
 

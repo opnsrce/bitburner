@@ -26,6 +26,10 @@ const getNsMock = (args?: (string | number | boolean)[]) => {
                 const [fieldName, defaultValue] = schema;
                 const type = typeof defaultValue;
 
+                if (fieldName === "args") {
+                    return accumulator;
+                }
+
                 accumulator[fieldName.replace(/\-/g, "")] = {
                     type: type === "boolean" ? type : "string",
                     multiple: Array.isArray(defaultValue),

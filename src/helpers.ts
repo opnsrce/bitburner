@@ -1,4 +1,5 @@
 import { FlagSchema, NS, ScriptConfig } from "../types";
+import defaultScriptConfig from "./default-script-config";
 
 /**
  * Maps the server network starting from root.
@@ -37,11 +38,8 @@ export const findServers = (
  * @returns Object of parsed script parameters.
  */
 export const parseNetScriptArgs = (ns: NS): ScriptConfig => {
-    const parsedFlags = ns.flags([
-        ["target", ""],
-        ["keepOpen", false],
-        ["growLimit", 100]
-    ]);
+    const schema = convertObjectToSchema(defaultScriptConfig);
+    const parsedFlags = ns.flags(schema);
 
     return {
         args: parsedFlags._ as string[],

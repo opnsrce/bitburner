@@ -1,4 +1,4 @@
-import { NS, ScriptConfig } from "../types";
+import { FlagSchema, NS, ScriptConfig } from "../types";
 
 /**
  * Maps the server network starting from root.
@@ -49,4 +49,24 @@ export const parseNetScriptArgs = (ns: NS): ScriptConfig => {
         keepOpen: parsedFlags.keepOpen as boolean,
         growLimit: parsedFlags.growLimit as number
     };
+};
+
+/**
+ * Converts an object into a Schema.
+ *
+ * @remarks
+ * @see {@link NS.flags} for more info
+ * @param object The object to convert
+ * @returns An array of Flag Schemas
+ */
+export const convertObjectToSchema = (object: Object): FlagSchema[] => {
+    const schema: FlagSchema[] = [];
+
+    for (const key in object) {
+        const value = object[key as keyof object];
+
+        schema.push([key, value]);
+    }
+
+    return schema;
 };

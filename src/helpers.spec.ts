@@ -1,6 +1,10 @@
 import { describe, expect, it } from "@jest/globals";
 import getNsMock from "../test/ns-mock";
-import { findServers, parseNetScriptArgs } from "./helpers";
+import {
+    findServers,
+    parseNetScriptArgs,
+    convertObjectToSchema
+} from "./helpers";
 import { NS, ScriptConfig } from "../types";
 
 import defaultScriptConfig from "./default-script-config";
@@ -90,6 +94,63 @@ describe("parseNetScriptArgs", () => {
             };
 
             expect(result).toStrictEqual(expectedConfig);
+        });
+    });
+});
+
+describe("convertObjectToSchema", () => {
+    describe("When the object has no keys", () => {
+        const object = {};
+
+        const result = convertObjectToSchema(object);
+        const expectedResult: Array<void> = [];
+
+        it("should return an empty array", () => {
+            expect(result).toStrictEqual(expectedResult);
+        });
+    });
+
+    describe("When the object is {myNum: 5}", () => {
+        const object = { myNum: 5 };
+
+        const result = convertObjectToSchema(object);
+        const expectedResult = [["myNum", 5]];
+
+        it(`should return [["myNum", 5]]`, () => {
+            expect(result).toStrictEqual(expectedResult);
+        });
+    });
+
+    describe("When the object is {myBool: true}", () => {
+        const object = { myBool: true };
+
+        const result = convertObjectToSchema(object);
+        const expectedResult = [["myBool", true]];
+
+        it(`should return [["myBool", true]]`, () => {
+            expect(result).toStrictEqual(expectedResult);
+        });
+    });
+
+    describe(`When the object is {myStr: "str"}`, () => {
+        const object = { myStr: "str" };
+
+        const result = convertObjectToSchema(object);
+        const expectedResult = [["myStr", "str"]];
+
+        it(`should return [["myStr", "str"]]`, () => {
+            expect(result).toStrictEqual(expectedResult);
+        });
+    });
+
+    describe(`When the object is {myArr: [5]}`, () => {
+        const object = { myArr: [5] };
+
+        const result = convertObjectToSchema(object);
+        const expectedResult = [["myArr", [5]]];
+
+        it(`should return [["myArr", [5]]]`, () => {
+            expect(result).toStrictEqual(expectedResult);
         });
     });
 });

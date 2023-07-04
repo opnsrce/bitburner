@@ -38,6 +38,11 @@ describe("findServers", () => {
 });
 
 describe("parseNetScriptArgs", () => {
+    let defaultConfig: ScriptConfig = {
+        args: [],
+        target: ""
+    };
+
     describe("When no arguments are defined", () => {
         let ns: NS;
         const args: (string | number | boolean)[] = [];
@@ -48,12 +53,8 @@ describe("parseNetScriptArgs", () => {
 
         it("should return a default script config", () => {
             const result = parseNetScriptArgs(ns);
-            const expectedConfig: ScriptConfig = {
-                args: [],
-                target: ""
-            };
 
-            expect(result).toStrictEqual(expectedConfig);
+            expect(result).toStrictEqual(defaultConfig);
         });
     });
 
@@ -68,7 +69,7 @@ describe("parseNetScriptArgs", () => {
         it("should set the 'target' in the script config", () => {
             const result = parseNetScriptArgs(ns);
             const expectedConfig: ScriptConfig = {
-                args: [],
+                ...defaultConfig,
                 target: "n00dles"
             };
 
@@ -78,12 +79,7 @@ describe("parseNetScriptArgs", () => {
 
     describe("When extra parameters are passed in", () => {
         let ns: NS;
-        const args: (string | number | boolean)[] = [
-            "--target",
-            "n00dles",
-            "extra",
-            "more"
-        ];
+        const args: (string | number | boolean)[] = ["extra", "more"];
 
         beforeEach(() => {
             ns = getNsMock(args);
@@ -92,8 +88,8 @@ describe("parseNetScriptArgs", () => {
         it("should set the 'args' in the script config", () => {
             const result = parseNetScriptArgs(ns);
             const expectedConfig: ScriptConfig = {
-                args: ["extra", "more"],
-                target: "n00dles"
+                ...defaultConfig,
+                args: ["extra", "more"]
             };
 
             expect(result).toStrictEqual(expectedConfig);

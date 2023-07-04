@@ -3,7 +3,7 @@ import getNsMock from "../test/ns-mock";
 import { findServers, parseNetScriptArgs } from "./helpers";
 import { NS, ScriptConfig } from "../types";
 
-import defaultScriptConfig from "../test/default-config";
+import defaultScriptConfig from "./default-script-config";
 
 describe("findServers", () => {
     describe("When the root is defined as 'home'", () => {

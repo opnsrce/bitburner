@@ -43,7 +43,7 @@ describe("parseNetScriptArgs", () => {
         target: ""
     };
 
-    describe("When no arguments are defined", () => {
+    describe("When no flags or arguments are set", () => {
         let ns: NS;
         const args: (string | number | boolean)[] = [];
 
@@ -51,14 +51,14 @@ describe("parseNetScriptArgs", () => {
             ns = getNsMock(args);
         });
 
-        it("should return a default script config", () => {
+        it("should return the default script config", () => {
             const result = parseNetScriptArgs(ns);
 
             expect(result).toStrictEqual(defaultConfig);
         });
     });
 
-    describe("When target is passed in to the script", () => {
+    describe("When --target is set", () => {
         let ns: NS;
         const args: (string | number | boolean)[] = ["--target", "n00dles"];
 
@@ -66,7 +66,7 @@ describe("parseNetScriptArgs", () => {
             ns = getNsMock(args);
         });
 
-        it("should set the 'target' in the script config", () => {
+        it("should set the 'target' property in the script config", () => {
             const result = parseNetScriptArgs(ns);
             const expectedConfig: ScriptConfig = {
                 ...defaultConfig,
@@ -77,7 +77,7 @@ describe("parseNetScriptArgs", () => {
         });
     });
 
-    describe("When extra parameters are passed in", () => {
+    describe("When extra parameters are set", () => {
         let ns: NS;
         const args: (string | number | boolean)[] = ["extra", "more"];
 
@@ -85,7 +85,7 @@ describe("parseNetScriptArgs", () => {
             ns = getNsMock(args);
         });
 
-        it("should set the 'args' in the script config", () => {
+        it("should store the extra parameters in the 'args' property", () => {
             const result = parseNetScriptArgs(ns);
             const expectedConfig: ScriptConfig = {
                 ...defaultConfig,

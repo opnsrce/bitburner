@@ -4,6 +4,7 @@ import { FlagSchema } from "../types";
 const getNsMock = (args?: (string | number | boolean)[]) => {
     const nsMock: Partial<NS> = {
         args: args,
+        getHostname: () => "",
         grow: (host: string, options?: BasicHGWOptions): Promise<number> => {
             return Promise.resolve(1);
         },

@@ -44,7 +44,6 @@ export const parseNetScriptArgs = (ns: NS): ScriptConfig => {
     return {
         args: parsedFlags._ as string[],
         target: parsedFlags.target as string,
-        keepOpen: parsedFlags.keepOpen as boolean,
         growLimit: parsedFlags.growLimit as number
     };
 };

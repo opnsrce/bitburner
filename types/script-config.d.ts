@@ -4,8 +4,6 @@ export type ScriptConfig = {
     args: string[];
     /** The target server the script will run against / execute on. */
     target: string;
-    /** If true, script will keep running after main operation finishes. */
-    keepOpen: boolean;
     /**
      * What percentage of getServerMaxMoney() to grow to before terminating.
      *

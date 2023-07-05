@@ -8,13 +8,14 @@ import { parseNetScriptArgs } from "./helpers";
  * @returns The result of grow.
  */
 export const main = async (ns: NS) => {
-    const { keepOpen, target } = parseNetScriptArgs(ns);
+    const { target, growLimit } = parseNetScriptArgs(ns);
+    const hostname = target || ns.getHostname();
+    const maxMoney = ns.getServerMaxMoney(hostname) * (growLimit * 0.01);
 
-    let result;
+    let currentMoney = ns.getServerMoneyAvailable(hostname);
 
-    do {
-        result = await ns.grow(target || ns.getHostname());
-    } while (keepOpen);
-
-    return result;
+    while (currentMoney < maxMoney) {
+        await ns.grow(hostname);
+        currentMoney = ns.getServerMoneyAvailable(hostname);
+    }
 };

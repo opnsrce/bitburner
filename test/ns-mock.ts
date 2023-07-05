@@ -13,6 +13,9 @@ const getNsMock = (args?: (string | number | boolean)[]) => {
         hack: (host: string, options?: BasicHGWOptions): Promise<number> => {
             return Promise.resolve(1);
         },
+        weaken: (host: string, options?: BasicHGWOptions): Promise<number> => {
+            return Promise.resolve(1);
+        },
         scan: (host?: string | undefined): string[] => {
             switch (host) {
                 case "home":

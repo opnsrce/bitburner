@@ -60,8 +60,9 @@ describe("Grow Script", () => {
         });
     });
 
-    describe("When the server's available money is at the server max", () => {
-        const ns = getNsMock(["target", "n00dles"]);
+    describe("When the server's available money is at the max limit", () => {
+        const ns = getNsMock(["--target", "n00dles"]);
+
         beforeEach(() => {
             jest.spyOn(ns, "grow");
             mockMoney(ns, 100, 100);
@@ -79,7 +80,7 @@ describe("Grow Script", () => {
     });
 
     describe("When the server's available money grows to the server max", () => {
-        const ns = getNsMock(["target", "n00dles"]);
+        const ns = getNsMock(["--target", "n00dles"]);
 
         let growMock: jest.SpiedFunction<
             (

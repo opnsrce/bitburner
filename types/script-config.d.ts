@@ -14,4 +14,16 @@ export type ScriptConfig = {
      * @see {@link NS.getServerMaxMoney}
      **/
     growLimit: number;
+
+    /**
+     * What percentage of the server's maximum available funds to take before
+     * terminating.
+     *
+     * @defaultValue
+     * Defaults to 100 (100% of getServerMaxMoney())
+     * @remarks
+     * Only applies to scripts that use {@link NS.grow | ns.grow}.
+     * @see {@link NS.getServerMaxMoney | getServerMaxMoney}
+     **/
+    hackLimit: number;
 };

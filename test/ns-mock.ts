@@ -10,6 +10,9 @@ const getNsMock = (args?: (string | number | boolean)[]) => {
         grow: (host: string, options?: BasicHGWOptions): Promise<number> => {
             return Promise.resolve(1);
         },
+        hack: (host: string, options?: BasicHGWOptions): Promise<number> => {
+            return Promise.resolve(1);
+        },
         scan: (host?: string | undefined): string[] => {
             switch (host) {
                 case "home":

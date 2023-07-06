@@ -11,7 +11,7 @@ export const main = async (ns: NS) => {
     const { target, hackLimit } = parseNetScriptArgs(ns);
     const hostname = target || ns.getHostname();
     const maxMoney = ns.getServerMaxMoney(hostname);
-    const hackModifier = hackLimit * 0.01;
+    const hackModifier = Math.min(100, hackLimit) * 0.01;
     const minMoney = maxMoney - maxMoney * hackModifier;
 
     let currentMoney = ns.getServerMoneyAvailable(hostname);

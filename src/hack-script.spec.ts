@@ -80,7 +80,7 @@ describe("Hack Script", () => {
         });
     });
 
-    describe("When the server's funds drop below the hackLimit", () => {
+    describe("When the server's funds are at the hackLimit", () => {
         const ns = getNsMock(["--target", "n00dles", "--hackLimit", 50]);
 
         beforeEach(() => {

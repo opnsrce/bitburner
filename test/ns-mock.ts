@@ -8,6 +8,7 @@ const getNsMock = (args?: (string | number | boolean)[]) => {
         getServerMaxMoney: () => 0,
         getServerMoneyAvailable: () => 0,
         getServerMinSecurityLevel: () => 1,
+        getServerSecurityLevel: () => 1,
         grow: (host: string, options?: BasicHGWOptions): Promise<number> => {
             return Promise.resolve(1);
         },

@@ -2,9 +2,16 @@ import { NS } from "../types";
 
 export default class Server {
     private _ns: NS;
-    constructor(ns: NS, name: string) {
-        this._ns = ns;
+    private _hostname: string;
 
-        this._ns.getServer(name);
+    constructor(ns: NS, hostname: string) {
+        this._ns = ns;
+        this._hostname = hostname;
+
+        this._ns.getServer(hostname);
+    }
+
+    get hostname() {
+        return this._hostname;
     }
 }

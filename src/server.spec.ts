@@ -7,23 +7,27 @@ describe("Server", () => {
     describe("constructor", () => {
         let ns: NS;
 
-        describe("When a server name is defined", () => {
+        describe("When a server hostname is defined", () => {
+            const serverName = "n00dles";
+            let server: Server;
             beforeEach(() => {
                 ns = getNsMock();
 
                 jest.spyOn(ns, "getServer");
+
+                server = new Server(ns, serverName);
             });
 
             afterEach(() => {
                 jest.clearAllMocks();
             });
 
-            it("should call ns.getServer with the server name", () => {
-                const serverName = "n00dles";
-
-                new Server(ns, serverName);
-
+            it("should call ns.getServer with the server's hostname", () => {
                 expect(ns.getServer).toBeCalledWith(serverName);
+            });
+
+            it("should set the server's hostname", () => {
+                expect(server.hostname).toBe(serverName);
             });
         });
     });

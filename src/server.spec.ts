@@ -371,8 +371,8 @@ describe("Server", () => {
                 server = new Server(ns, "n00dles");
             });
 
-            it("should set 'isBackdoored' to false", () => {
-                expect(server.isBackdoored).toBe(false);
+            it("should set 'purchasedByPlayer' to false", () => {
+                expect(server.purchasedByPlayer).toBe(false);
             });
         });
 

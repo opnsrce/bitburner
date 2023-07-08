@@ -32,6 +32,14 @@ describe("Server", () => {
         let server: Server;
         let ns: NS;
 
+        it("should fetch the most recent server data", () => {
+            ns = getNsMock();
+            mockNsGetServer(ns, {});
+            server = new Server(ns, "n00dles");
+
+            expect(ns.getServer).toHaveBeenCalledWith("n00dles");
+        });
+
         describe("hostname", () => {
             beforeEach(() => {
                 ns = getNsMock();

@@ -2,26 +2,15 @@ import { describe, expect, it, jest, afterEach } from "@jest/globals";
 import getNsMock from "../test/ns-mock";
 import Server from "./server";
 import { NS, Server as BitBurnerServer } from "../types";
+import mockBitBurnerServer from "../test/bitburner-server-mock";
 
 const mockNsGetServer = (ns: NS, mockServer: Partial<BitBurnerServer>) => {
     return jest
         .spyOn(ns, "getServer")
         .mockImplementation((host?: string | undefined) => {
             return {
-                cpuCores: 1,
-                ftpPortOpen: false,
-                hasAdminRights: false,
+                ...mockBitBurnerServer,
                 hostname: host || "",
-                httpPortOpen: false,
-                ip: "192.168.11.1",
-                isConnectedTo: false,
-                maxRam: 32,
-                organizationName: "",
-                purchasedByPlayer: false,
-                ramUsed: 0,
-                smtpPortOpen: false,
-                sqlPortOpen: false,
-                sshPortOpen: false,
                 ...mockServer
             };
         });

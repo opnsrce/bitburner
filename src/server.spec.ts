@@ -463,5 +463,41 @@ describe("Server", () => {
                 expect(server.serverGrowth).toBe(5);
             });
         });
+
+        describe("When getServer().smtpPortOpen is undefined", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, { smtpPortOpen: false });
+                server = new Server(ns, "n00dles");
+            });
+
+            it("should set 'isSmtpPortOpen' to false", () => {
+                expect(server.isSmtpPortOpen).toBe(false);
+            });
+        });
+
+        describe("When getServer().smtpPortOpen is false", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, { smtpPortOpen: false });
+                server = new Server(ns, "n00dles");
+            });
+
+            it("should set 'isSmtpPortOpen' to false", () => {
+                expect(server.isSmtpPortOpen).toBe(false);
+            });
+        });
+
+        describe("When getServer().smtpPortOpen is true", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, { smtpPortOpen: true });
+                server = new Server(ns, "n00dles");
+            });
+
+            it("should set 'isSmtpPortOpen' to true", () => {
+                expect(server.isSmtpPortOpen).toBe(true);
+            });
+        });
     });
 });

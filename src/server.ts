@@ -4,22 +4,23 @@ export default class Server {
     private _ns: NS;
     private _cpuCores: number;
     private _hostname: string;
+    private _ip: string;
     private _isBackdoored: boolean;
     private _isFtpPortOpen: boolean;
     private _isHttpPortOpen: boolean;
-    private _securityLevel: number;
     private _isRooted: boolean;
-    private _ip: string;
-    private _maxRam: number;
+    private _isSmtpPortOpen: boolean;
     private _maxMoney: number;
+    private _maxRam: number;
     private _minSecurityLevel: number;
     private _money: number;
-    private _numOpenPortsRequired: number;
     private _numOpenPorts: number;
+    private _numOpenPortsRequired: number;
     private _organizationName: string;
     private _purchasedByPlayer: boolean;
     private _ramUsed: number;
     private _requiredHackingLevel: number;
+    private _securityLevel: number;
     private _serverGrowth: number;
 
     constructor(ns: NS, hostname: string) {
@@ -34,6 +35,7 @@ export default class Server {
         this._isFtpPortOpen = serverData.ftpPortOpen || false;
         this._isHttpPortOpen = serverData.httpPortOpen;
         this._isRooted = serverData.hasAdminRights;
+        this._isSmtpPortOpen = serverData.smtpPortOpen || false;
         this._maxMoney = serverData.moneyMax || 0;
         this._maxRam = serverData.maxRam;
         this._minSecurityLevel = serverData.minDifficulty || 0;
@@ -74,6 +76,10 @@ export default class Server {
 
     get isRooted() {
         return this._isRooted;
+    }
+
+    get isSmtpPortOpen() {
+        return this._isSmtpPortOpen;
     }
 
     get maxMoney() {

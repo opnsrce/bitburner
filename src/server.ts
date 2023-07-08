@@ -22,38 +22,42 @@ export default class Server {
 
     constructor(ns: NS, hostname: string) {
         this._ns = ns;
-        this._hostname = hostname;
 
         const serverData = this._ns.getServer(hostname);
 
         this._cpuCores = serverData.cpuCores;
+        this._hostname = hostname;
+        this._ip = serverData.ip;
         this._isBackdoored = serverData.backdoorInstalled || false;
         this._isFtpPortOpen = serverData.ftpPortOpen || false;
-        this._securityLevel = serverData.hackDifficulty || 0;
         this._isHttpPortOpen = serverData.httpPortOpen;
         this._isRooted = serverData.hasAdminRights;
-        this._ip = serverData.ip;
+        this._maxMoney = serverData.moneyMax || 0;
         this._maxRam = serverData.maxRam;
         this._minSecurityLevel = serverData.minDifficulty || 0;
         this._money = serverData.moneyAvailable || 0;
-        this._maxMoney = serverData.moneyMax || 0;
-        this._numOpenPortsRequired = serverData.numOpenPortsRequired || 0;
         this._numOpenPorts = serverData.openPortCount || 0;
+        this._numOpenPortsRequired = serverData.numOpenPortsRequired || 0;
         this._organizationName = serverData.organizationName;
         this._purchasedByPlayer = serverData.purchasedByPlayer || false;
         this._ramUsed = serverData.ramUsed;
+        this._securityLevel = serverData.hackDifficulty || 0;
     }
 
     get cpuCores() {
         return this._cpuCores;
     }
 
-    get isBackdoored() {
-        return this._isBackdoored;
-    }
-
     get hostname() {
         return this._hostname;
+    }
+
+    get ip() {
+        return this._ip;
+    }
+
+    get isBackdoored() {
+        return this._isBackdoored;
     }
 
     get isFtpPortOpen() {
@@ -64,36 +68,32 @@ export default class Server {
         return this._isHttpPortOpen;
     }
 
-    get ip() {
-        return this._ip;
-    }
-
     get isRooted() {
         return this._isRooted;
-    }
-
-    get maxRam() {
-        return this._maxRam;
     }
 
     get maxMoney() {
         return this._maxMoney;
     }
 
-    get money() {
-        return this._money;
+    get maxRam() {
+        return this._maxRam;
     }
 
     get minSecurityLevel() {
         return this._minSecurityLevel;
     }
 
-    get numOpenPortsRequired() {
-        return this._numOpenPortsRequired;
+    get money() {
+        return this._money;
     }
 
     get numOpenPorts() {
         return this._numOpenPorts;
+    }
+
+    get numOpenPortsRequired() {
+        return this._numOpenPortsRequired;
     }
 
     get organizationName() {

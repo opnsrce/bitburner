@@ -171,5 +171,29 @@ describe("Server", () => {
                 expect(server.isRooted).toBe(false);
             });
         });
+
+        describe("When getServer().httpPortOpen is true", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, { httpPortOpen: true });
+                server = new Server(ns, "n00dles");
+            });
+
+            it("should set 'isHttpPortOpen' to true", () => {
+                expect(server.isHttpPortOpen).toBe(true);
+            });
+        });
+
+        describe("When getServer().httpPortOpen is false", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, { httpPortOpen: false });
+                server = new Server(ns, "n00dles");
+            });
+
+            it("should set 'isHttpPortOpen' to false", () => {
+                expect(server.isHttpPortOpen).toBe(false);
+            });
+        });
     });
 });

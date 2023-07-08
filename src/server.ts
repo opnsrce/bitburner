@@ -6,6 +6,7 @@ export default class Server {
     private _hostname: string;
     private _isBackdoored: boolean;
     private _isFtpPortOpen: boolean;
+    private _isHttpPortOpen: boolean;
     private _securityLevel: number;
     private _isRooted: boolean;
 
@@ -21,6 +22,7 @@ export default class Server {
         this._securityLevel = serverData.hackDifficulty
             ? serverData.hackDifficulty
             : 0;
+        this._isHttpPortOpen = serverData.httpPortOpen;
         this._isRooted = serverData.hasAdminRights;
     }
 
@@ -38,6 +40,10 @@ export default class Server {
 
     get isFtpPortOpen() {
         return this._isFtpPortOpen;
+    }
+
+    get isHttpPortOpen() {
+        return this._isHttpPortOpen;
     }
 
     get isRooted() {

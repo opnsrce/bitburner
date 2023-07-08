@@ -299,5 +299,29 @@ describe("Server", () => {
                 expect(server.maxMoney).toBe(100);
             });
         });
+
+        describe("When getServer().numOpenPortsRequired is undefined", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, {});
+                server = new Server(ns, "n00dles");
+            });
+
+            it("should set 'numOpenPortsRequired' to 0", () => {
+                expect(server.numOpenPortsRequired).toBe(0);
+            });
+        });
+
+        describe("When getServer().numOpenPortsRequired is 5", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, { numOpenPortsRequired: 5 });
+                server = new Server(ns, "n00dles");
+            });
+
+            it("should set 'numOpenPortsRequired' to 5", () => {
+                expect(server.numOpenPortsRequired).toBe(5);
+            });
+        });
     });
 });

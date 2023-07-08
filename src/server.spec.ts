@@ -399,5 +399,21 @@ describe("Server", () => {
                 expect(server.purchasedByPlayer).toBe(true);
             });
         });
+
+        describe("ramUsed", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, { ramUsed: 0 });
+                server = new Server(ns, "n00dles");
+            });
+
+            afterEach(() => {
+                jest.clearAllMocks();
+            });
+
+            it("should set 'ramUsed'", () => {
+                expect(server.ramUsed).toBe(0);
+            });
+        });
     });
 });

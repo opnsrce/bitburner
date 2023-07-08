@@ -18,6 +18,7 @@ export default class Server {
     private _numOpenPorts: number;
     private _organizationName: string;
     private _purchasedByPlayer: boolean;
+    private _ramUsed: number;
 
     constructor(ns: NS, hostname: string) {
         this._ns = ns;
@@ -40,6 +41,7 @@ export default class Server {
         this._numOpenPorts = serverData.openPortCount || 0;
         this._organizationName = serverData.organizationName;
         this._purchasedByPlayer = serverData.purchasedByPlayer || false;
+        this._ramUsed = serverData.ramUsed;
     }
 
     get cpuCores() {
@@ -100,6 +102,10 @@ export default class Server {
 
     get purchasedByPlayer() {
         return this._purchasedByPlayer;
+    }
+
+    get ramUsed() {
+        return this._ramUsed;
     }
 
     get securityLevel() {

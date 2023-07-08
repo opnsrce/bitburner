@@ -251,5 +251,29 @@ describe("Server", () => {
                 expect(server.minSecurityLevel).toBe(1);
             });
         });
+
+        describe("When getServer().moneyAvailable is undefined", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, {});
+                server = new Server(ns, "n00dles");
+            });
+
+            it("should set 'money' to 0", () => {
+                expect(server.money).toBe(0);
+            });
+        });
+
+        describe("When getServer().moneyAvailable is 1", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, { moneyAvailable: 1 });
+                server = new Server(ns, "n00dles");
+            });
+
+            it("should set 'money' to 1", () => {
+                expect(server.money).toBe(1);
+            });
+        });
     });
 });

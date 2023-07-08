@@ -12,6 +12,7 @@ export default class Server {
     private _ip: string;
     private _maxRam: number;
     private _minSecurityLevel: number;
+    private _money: number;
 
     constructor(ns: NS, hostname: string) {
         this._ns = ns;
@@ -32,6 +33,7 @@ export default class Server {
         this._minSecurityLevel = serverData.minDifficulty
             ? serverData.minDifficulty
             : 0;
+        this._money = serverData.moneyAvailable || 0;
     }
 
     get cpuCores() {
@@ -64,6 +66,10 @@ export default class Server {
 
     get maxRam() {
         return this._maxRam;
+    }
+
+    get money() {
+        return this._money;
     }
 
     get minSecurityLevel() {

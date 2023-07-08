@@ -415,5 +415,29 @@ describe("Server", () => {
                 expect(server.ramUsed).toBe(0);
             });
         });
+
+        describe("When getServer().requiredHackingSkill is undefined", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, {});
+                server = new Server(ns, "n00dles");
+            });
+
+            it("should set 'requiredHackingLevel' to 0", () => {
+                expect(server.requiredHackingLevel).toBe(0);
+            });
+        });
+
+        describe("When getServer().requiredHackingSkill is 5", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, { requiredHackingSkill: 5 });
+                server = new Server(ns, "n00dles");
+            });
+
+            it("should set 'requiredHackingLevel' to 5", () => {
+                expect(server.requiredHackingLevel).toBe(5);
+            });
+        });
     });
 });

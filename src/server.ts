@@ -19,6 +19,7 @@ export default class Server {
     private _organizationName: string;
     private _purchasedByPlayer: boolean;
     private _ramUsed: number;
+    private _requiredHackingLevel: number;
 
     constructor(ns: NS, hostname: string) {
         this._ns = ns;
@@ -41,6 +42,7 @@ export default class Server {
         this._organizationName = serverData.organizationName;
         this._purchasedByPlayer = serverData.purchasedByPlayer || false;
         this._ramUsed = serverData.ramUsed;
+        this._requiredHackingLevel = serverData.requiredHackingSkill || 0;
         this._securityLevel = serverData.hackDifficulty || 0;
     }
 
@@ -106,6 +108,10 @@ export default class Server {
 
     get ramUsed() {
         return this._ramUsed;
+    }
+
+    get requiredHackingLevel() {
+        return this._requiredHackingLevel;
     }
 
     get securityLevel() {

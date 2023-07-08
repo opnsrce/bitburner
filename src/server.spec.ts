@@ -132,7 +132,7 @@ describe("Server", () => {
             });
         });
 
-        describe("hostname", () => {
+        describe("cpuCores", () => {
             beforeEach(() => {
                 ns = getNsMock();
                 mockNsGetServer(ns, { cpuCores: 5 });

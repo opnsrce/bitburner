@@ -11,6 +11,7 @@ export default class Server {
     private _isRooted: boolean;
     private _isSmtpPortOpen: boolean;
     private _isSqlPortOpen: boolean;
+    private _isSshPortOpen: boolean;
     private _maxMoney: number;
     private _maxRam: number;
     private _minSecurityLevel: number;
@@ -38,6 +39,7 @@ export default class Server {
         this._isRooted = serverData.hasAdminRights;
         this._isSmtpPortOpen = serverData.smtpPortOpen || false;
         this._isSqlPortOpen = serverData.sqlPortOpen || false;
+        this._isSshPortOpen = serverData.sshPortOpen || false;
         this._maxMoney = serverData.moneyMax || 0;
         this._maxRam = serverData.maxRam;
         this._minSecurityLevel = serverData.minDifficulty || 0;
@@ -86,6 +88,10 @@ export default class Server {
 
     get isSqlPortOpen() {
         return this._isSqlPortOpen;
+    }
+
+    get isSshPortOpen() {
+        return this._isSshPortOpen;
     }
 
     get maxMoney() {

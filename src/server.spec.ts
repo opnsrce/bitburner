@@ -523,5 +523,29 @@ describe("Server", () => {
                 expect(server.isSqlPortOpen).toBe(true);
             });
         });
+
+        describe("When getServer().sshPortOpen is false", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, { sshPortOpen: false });
+                server = new Server(ns, "n00dles");
+            });
+
+            it("should set 'isSshPortOpen' to false", () => {
+                expect(server.isSshPortOpen).toBe(false);
+            });
+        });
+
+        describe("When getServer().SshPortOpen is true", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, { sshPortOpen: true });
+                server = new Server(ns, "n00dles");
+            });
+
+            it("should set 'isSshPortOpen' to true", () => {
+                expect(server.isSshPortOpen).toBe(true);
+            });
+        });
     });
 });

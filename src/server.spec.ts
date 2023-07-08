@@ -439,5 +439,29 @@ describe("Server", () => {
                 expect(server.requiredHackingLevel).toBe(5);
             });
         });
+
+        describe("When getServer().serverGrowth is undefined", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, {});
+                server = new Server(ns, "n00dles");
+            });
+
+            it("should set 'serverGrowth' to 0", () => {
+                expect(server.serverGrowth).toBe(0);
+            });
+        });
+
+        describe("When getServer().serverGrowth is 5", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, { serverGrowth: 5 });
+                server = new Server(ns, "n00dles");
+            });
+
+            it("should set 'serverGrowth' to 5", () => {
+                expect(server.serverGrowth).toBe(5);
+            });
+        });
     });
 });

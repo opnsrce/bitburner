@@ -20,6 +20,7 @@ export default class Server {
     private _purchasedByPlayer: boolean;
     private _ramUsed: number;
     private _requiredHackingLevel: number;
+    private _serverGrowth: number;
 
     constructor(ns: NS, hostname: string) {
         this._ns = ns;
@@ -44,6 +45,7 @@ export default class Server {
         this._ramUsed = serverData.ramUsed;
         this._requiredHackingLevel = serverData.requiredHackingSkill || 0;
         this._securityLevel = serverData.hackDifficulty || 0;
+        this._serverGrowth = serverData.serverGrowth || 0;
     }
 
     get cpuCores() {
@@ -116,5 +118,9 @@ export default class Server {
 
     get securityLevel() {
         return this._securityLevel;
+    }
+
+    get serverGrowth() {
+        return this._serverGrowth;
     }
 }

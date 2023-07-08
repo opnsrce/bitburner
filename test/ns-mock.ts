@@ -1,6 +1,8 @@
 import { BasicHGWOptions, NS, ParsedArgs } from "../types";
 import { parseArgs, ParseArgsConfig } from "node:util";
-import { FlagSchema, Server } from "../types";
+import { FlagSchema } from "../types";
+import BitBurnerServerMock from "./bitburner-server-mock";
+
 const getNsMock = (args?: (string | number | boolean)[]) => {
     const nsMock: Partial<NS> = {
         args: args,
@@ -10,7 +12,7 @@ const getNsMock = (args?: (string | number | boolean)[]) => {
         getServerMinSecurityLevel: () => 1,
         getServerSecurityLevel: () => 1,
         getServer: (host: string) => {
-            return {} as Server;
+            return BitBurnerServerMock;
         },
         grow: (host: string, options?: BasicHGWOptions): Promise<number> => {
             return Promise.resolve(1);

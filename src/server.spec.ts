@@ -499,5 +499,29 @@ describe("Server", () => {
                 expect(server.isSmtpPortOpen).toBe(true);
             });
         });
+
+        describe("When getServer().sqlPortOpen is false", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, { sqlPortOpen: false });
+                server = new Server(ns, "n00dles");
+            });
+
+            it("should set 'isSqlPortOpen' to false", () => {
+                expect(server.isSqlPortOpen).toBe(false);
+            });
+        });
+
+        describe("When getServer().sqlPortOpen is true", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, { sqlPortOpen: true });
+                server = new Server(ns, "n00dles");
+            });
+
+            it("should set 'isSqlPortOpen' to true", () => {
+                expect(server.isSqlPortOpen).toBe(true);
+            });
+        });
     });
 });

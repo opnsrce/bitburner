@@ -347,5 +347,21 @@ describe("Server", () => {
                 expect(server.numOpenPorts).toBe(5);
             });
         });
+
+        describe("organizationName", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, { organizationName: "HackTech" });
+                server = new Server(ns, "n00dles");
+            });
+
+            afterEach(() => {
+                jest.clearAllMocks();
+            });
+
+            it("should set 'organizationName'", () => {
+                expect(server.organizationName).toBe("HackTech");
+            });
+        });
     });
 });

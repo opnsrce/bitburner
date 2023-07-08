@@ -11,6 +11,7 @@ export default class Server {
     private _isRooted: boolean;
     private _ip: string;
     private _maxRam: number;
+    private _minSecurityLevel: number;
 
     constructor(ns: NS, hostname: string) {
         this._ns = ns;
@@ -28,6 +29,9 @@ export default class Server {
         this._isRooted = serverData.hasAdminRights;
         this._ip = serverData.ip;
         this._maxRam = serverData.maxRam;
+        this._minSecurityLevel = serverData.minDifficulty
+            ? serverData.minDifficulty
+            : 0;
     }
 
     get cpuCores() {
@@ -60,6 +64,10 @@ export default class Server {
 
     get maxRam() {
         return this._maxRam;
+    }
+
+    get minSecurityLevel() {
+        return this._minSecurityLevel;
     }
 
     get securityLevel() {

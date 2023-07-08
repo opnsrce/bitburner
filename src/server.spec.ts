@@ -227,5 +227,29 @@ describe("Server", () => {
                 expect(server.maxRam).toBe(10);
             });
         });
+
+        describe("When getServer().minDifficulty is undefined", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, {});
+                server = new Server(ns, "n00dles");
+            });
+
+            it("should set 'minSecurityLevel' to 0", () => {
+                expect(server.minSecurityLevel).toBe(0);
+            });
+        });
+
+        describe("When getServer().minDifficulty is 1", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, { minDifficulty: 1 });
+                server = new Server(ns, "n00dles");
+            });
+
+            it("should set 'minSecurityLevel' to 1", () => {
+                expect(server.minSecurityLevel).toBe(1);
+            });
+        });
     });
 });

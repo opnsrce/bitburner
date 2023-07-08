@@ -131,5 +131,21 @@ describe("Server", () => {
                 expect(server.securityLevel).toBe(1);
             });
         });
+
+        describe("hostname", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, { cpuCores: 5 });
+                server = new Server(ns, "n00dles");
+            });
+
+            afterEach(() => {
+                jest.clearAllMocks();
+            });
+
+            it("should set 'cpuCores'", () => {
+                expect(server.cpuCores).toBe(5);
+            });
+        });
     });
 });

@@ -15,6 +15,7 @@ export default class Server {
     private _minSecurityLevel: number;
     private _money: number;
     private _numOpenPortsRequired: number;
+    private _numOpenPorts: number;
 
     constructor(ns: NS, hostname: string) {
         this._ns = ns;
@@ -34,6 +35,7 @@ export default class Server {
         this._money = serverData.moneyAvailable || 0;
         this._maxMoney = serverData.moneyMax || 0;
         this._numOpenPortsRequired = serverData.numOpenPortsRequired || 0;
+        this._numOpenPorts = serverData.openPortCount || 0;
     }
 
     get cpuCores() {
@@ -82,6 +84,10 @@ export default class Server {
 
     get numOpenPortsRequired() {
         return this._numOpenPortsRequired;
+    }
+
+    get numOpenPorts() {
+        return this._numOpenPorts;
     }
 
     get securityLevel() {

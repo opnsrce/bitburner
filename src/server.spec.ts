@@ -323,5 +323,29 @@ describe("Server", () => {
                 expect(server.numOpenPortsRequired).toBe(5);
             });
         });
+
+        describe("When getServer().openPortCount is undefined", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, {});
+                server = new Server(ns, "n00dles");
+            });
+
+            it("should set 'numOpenPorts' to 0", () => {
+                expect(server.numOpenPorts).toBe(0);
+            });
+        });
+
+        describe("When getServer().openPortCount is 5", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, { openPortCount: 5 });
+                server = new Server(ns, "n00dles");
+            });
+
+            it("should set 'numOpenPorts' to 5", () => {
+                expect(server.numOpenPorts).toBe(5);
+            });
+        });
     });
 });

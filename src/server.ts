@@ -17,6 +17,7 @@ export default class Server {
     private _numOpenPortsRequired: number;
     private _numOpenPorts: number;
     private _organizationName: string;
+    private _purchasedByPlayer: boolean;
 
     constructor(ns: NS, hostname: string) {
         this._ns = ns;
@@ -38,6 +39,7 @@ export default class Server {
         this._numOpenPortsRequired = serverData.numOpenPortsRequired || 0;
         this._numOpenPorts = serverData.openPortCount || 0;
         this._organizationName = serverData.organizationName;
+        this._purchasedByPlayer = serverData.purchasedByPlayer || false;
     }
 
     get cpuCores() {
@@ -94,6 +96,10 @@ export default class Server {
 
     get organizationName() {
         return this._organizationName;
+    }
+
+    get purchasedByPlayer() {
+        return this._purchasedByPlayer;
     }
 
     get securityLevel() {

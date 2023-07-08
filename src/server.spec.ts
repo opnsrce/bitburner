@@ -363,5 +363,41 @@ describe("Server", () => {
                 expect(server.organizationName).toBe("HackTech");
             });
         });
+
+        describe("When getServer().purchasedByPlayer is undefined", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, { purchasedByPlayer: false });
+                server = new Server(ns, "n00dles");
+            });
+
+            it("should set 'isBackdoored' to false", () => {
+                expect(server.isBackdoored).toBe(false);
+            });
+        });
+
+        describe("When getServer().purchasedByPlayer is false", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, { purchasedByPlayer: false });
+                server = new Server(ns, "n00dles");
+            });
+
+            it("should set 'isBackdoored' to false", () => {
+                expect(server.isBackdoored).toBe(false);
+            });
+        });
+
+        describe("When getServer().purchasedByPlayer is true", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, { purchasedByPlayer: true });
+                server = new Server(ns, "n00dles");
+            });
+
+            it("should set 'purchasedByPlayer' to true", () => {
+                expect(server.purchasedByPlayer).toBe(true);
+            });
+        });
     });
 });

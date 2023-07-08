@@ -5,25 +5,11 @@ export default class Server {
     private _cpuCores: number;
     private _hostname: string;
     private _ip: string;
-    private _isBackdoored: boolean;
-    private _isFtpPortOpen: boolean;
-    private _isHttpPortOpen: boolean;
-    private _isRooted: boolean;
-    private _isSmtpPortOpen: boolean;
-    private _isSqlPortOpen: boolean;
-    private _isSshPortOpen: boolean;
     private _maxMoney: number;
     private _maxRam: number;
     private _minSecurityLevel: number;
-    private _money: number;
-    private _numOpenPorts: number;
-    private _numOpenPortsRequired: number;
     private _organizationName: string;
     private _purchasedByPlayer: boolean;
-    private _ramUsed: number;
-    private _requiredHackingLevel: number;
-    private _securityLevel: number;
-    private _serverGrowth: number;
 
     constructor(ns: NS, hostname: string) {
         this._ns = ns;
@@ -33,25 +19,11 @@ export default class Server {
         this._cpuCores = serverData.cpuCores;
         this._hostname = hostname;
         this._ip = serverData.ip;
-        this._isBackdoored = serverData.backdoorInstalled || false;
-        this._isFtpPortOpen = serverData.ftpPortOpen || false;
-        this._isHttpPortOpen = serverData.httpPortOpen;
-        this._isRooted = serverData.hasAdminRights;
-        this._isSmtpPortOpen = serverData.smtpPortOpen || false;
-        this._isSqlPortOpen = serverData.sqlPortOpen || false;
-        this._isSshPortOpen = serverData.sshPortOpen || false;
         this._maxMoney = serverData.moneyMax || 0;
         this._maxRam = serverData.maxRam;
         this._minSecurityLevel = serverData.minDifficulty || 0;
-        this._money = serverData.moneyAvailable || 0;
-        this._numOpenPorts = serverData.openPortCount || 0;
-        this._numOpenPortsRequired = serverData.numOpenPortsRequired || 0;
         this._organizationName = serverData.organizationName;
         this._purchasedByPlayer = serverData.purchasedByPlayer || false;
-        this._ramUsed = serverData.ramUsed;
-        this._requiredHackingLevel = serverData.requiredHackingSkill || 0;
-        this._securityLevel = serverData.hackDifficulty || 0;
-        this._serverGrowth = serverData.serverGrowth || 0;
     }
 
     get cpuCores() {
@@ -67,31 +39,31 @@ export default class Server {
     }
 
     get isBackdoored() {
-        return this._isBackdoored;
+        return this.fetchServerData().backdoorInstalled || false;
     }
 
     get isFtpPortOpen() {
-        return this._isFtpPortOpen;
+        return this.fetchServerData().ftpPortOpen || false;
     }
 
     get isHttpPortOpen() {
-        return this._isHttpPortOpen;
+        return this.fetchServerData().httpPortOpen || false;
     }
 
     get isRooted() {
-        return this._isRooted;
+        return this.fetchServerData().hasAdminRights || false;
     }
 
     get isSmtpPortOpen() {
-        return this._isSmtpPortOpen;
+        return this.fetchServerData().smtpPortOpen || false;
     }
 
     get isSqlPortOpen() {
-        return this._isSqlPortOpen;
+        return this.fetchServerData().sqlPortOpen || false;
     }
 
     get isSshPortOpen() {
-        return this._isSshPortOpen;
+        return this.fetchServerData().sshPortOpen || false;
     }
 
     get maxMoney() {
@@ -107,15 +79,15 @@ export default class Server {
     }
 
     get money() {
-        return this._money;
+        return this.fetchServerData().moneyAvailable || 0;
     }
 
     get numOpenPorts() {
-        return this._numOpenPorts;
+        return this.fetchServerData().openPortCount || 0;
     }
 
     get numOpenPortsRequired() {
-        return this._numOpenPortsRequired;
+        return this.fetchServerData().numOpenPortsRequired || 0;
     }
 
     get organizationName() {
@@ -127,18 +99,22 @@ export default class Server {
     }
 
     get ramUsed() {
-        return this._ramUsed;
+        return this.fetchServerData().ramUsed;
     }
 
     get requiredHackingLevel() {
-        return this._requiredHackingLevel;
+        return this.fetchServerData().requiredHackingSkill || 0;
     }
 
     get securityLevel() {
-        return this._securityLevel;
+        return this.fetchServerData().hackDifficulty || 0;
     }
 
     get serverGrowth() {
-        return this._serverGrowth;
+        return this.fetchServerData().serverGrowth || 0;
+    }
+
+    private fetchServerData() {
+        return this._ns.getServer(this.hostname);
     }
 }

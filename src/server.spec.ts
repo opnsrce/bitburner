@@ -211,5 +211,21 @@ describe("Server", () => {
                 expect(server.ip).toBe("192.168.11.1");
             });
         });
+
+        describe("maxRam", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, { maxRam: 10 });
+                server = new Server(ns, "n00dles");
+            });
+
+            afterEach(() => {
+                jest.clearAllMocks();
+            });
+
+            it("should set 'maxRam'", () => {
+                expect(server.maxRam).toBe(10);
+            });
+        });
     });
 });

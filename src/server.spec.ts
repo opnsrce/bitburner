@@ -83,5 +83,29 @@ describe("Server", () => {
                 expect(server.isBackdoored).toBe(true);
             });
         });
+
+        describe("When getServer().ftpPortOpen is true", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, { ftpPortOpen: true });
+                server = new Server(ns, "n00dles");
+            });
+
+            it("should set 'isFtpPortOpen' to true", () => {
+                expect(server.isFtpPortOpen).toBe(true);
+            });
+        });
+
+        describe("When getServer().false is false", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, { ftpPortOpen: false });
+                server = new Server(ns, "n00dles");
+            });
+
+            it("should set 'isFtpPortOpen' to false", () => {
+                expect(server.isFtpPortOpen).toBe(false);
+            });
+        });
     });
 });

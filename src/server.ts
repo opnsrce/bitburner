@@ -9,6 +9,7 @@ export default class Server {
     private _isHttpPortOpen: boolean;
     private _securityLevel: number;
     private _isRooted: boolean;
+    private _ip: string;
 
     constructor(ns: NS, hostname: string) {
         this._ns = ns;
@@ -24,6 +25,7 @@ export default class Server {
             : 0;
         this._isHttpPortOpen = serverData.httpPortOpen;
         this._isRooted = serverData.hasAdminRights;
+        this._ip = serverData.ip;
     }
 
     get cpuCores() {
@@ -44,6 +46,10 @@ export default class Server {
 
     get isHttpPortOpen() {
         return this._isHttpPortOpen;
+    }
+
+    get ip() {
+        return this._ip;
     }
 
     get isRooted() {

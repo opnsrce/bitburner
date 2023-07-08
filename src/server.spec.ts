@@ -96,7 +96,7 @@ describe("Server", () => {
             });
         });
 
-        describe("When getServer().false is false", () => {
+        describe("When getServer().ftpOpen is false", () => {
             beforeEach(() => {
                 ns = getNsMock();
                 mockNsGetServer(ns, { ftpPortOpen: false });

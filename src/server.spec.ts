@@ -107,5 +107,29 @@ describe("Server", () => {
                 expect(server.isFtpPortOpen).toBe(false);
             });
         });
+
+        describe("When getServer().hackDifficulty is undefined", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, {});
+                server = new Server(ns, "n00dles");
+            });
+
+            it("should set 'securityLevel' to 0", () => {
+                expect(server.securityLevel).toBe(0);
+            });
+        });
+
+        describe("When getServer().hackDifficulty is 1", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, { hackDifficulty: 1 });
+                server = new Server(ns, "n00dles");
+            });
+
+            it("should set 'securityLevel' to 1", () => {
+                expect(server.securityLevel).toBe(1);
+            });
+        });
     });
 });

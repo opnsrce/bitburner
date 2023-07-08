@@ -5,6 +5,7 @@ export default class Server {
     private _hostname: string;
     private _isBackdoored: boolean;
     private _isFtpPortOpen: boolean;
+    private _securityLevel: number;
 
     constructor(ns: NS, hostname: string) {
         this._ns = ns;
@@ -14,6 +15,9 @@ export default class Server {
 
         this._isBackdoored = serverData.backdoorInstalled ? true : false;
         this._isFtpPortOpen = serverData.ftpPortOpen ? true : false;
+        this._securityLevel = serverData.hackDifficulty
+            ? serverData.hackDifficulty
+            : 0;
     }
 
     get isBackdoored() {
@@ -26,5 +30,9 @@ export default class Server {
 
     get isFtpPortOpen() {
         return this._isFtpPortOpen;
+    }
+
+    get securityLevel() {
+        return this._securityLevel;
     }
 }

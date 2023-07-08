@@ -7,6 +7,7 @@ export default class Server {
     private _isBackdoored: boolean;
     private _isFtpPortOpen: boolean;
     private _securityLevel: number;
+    private _isRooted: boolean;
 
     constructor(ns: NS, hostname: string) {
         this._ns = ns;
@@ -20,6 +21,7 @@ export default class Server {
         this._securityLevel = serverData.hackDifficulty
             ? serverData.hackDifficulty
             : 0;
+        this._isRooted = serverData.hasAdminRights;
     }
 
     get cpuCores() {
@@ -36,6 +38,10 @@ export default class Server {
 
     get isFtpPortOpen() {
         return this._isFtpPortOpen;
+    }
+
+    get isRooted() {
+        return this._isRooted;
     }
 
     get securityLevel() {

@@ -147,5 +147,29 @@ describe("Server", () => {
                 expect(server.cpuCores).toBe(5);
             });
         });
+
+        describe("When getServer().hasAdminRights is true", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, { hasAdminRights: true });
+                server = new Server(ns, "n00dles");
+            });
+
+            it("should set 'isRooted' to true", () => {
+                expect(server.isRooted).toBe(true);
+            });
+        });
+
+        describe("When getServer().hasAdminRights is false", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, { hasAdminRights: false });
+                server = new Server(ns, "n00dles");
+            });
+
+            it("should set 'isRooted' to false", () => {
+                expect(server.isRooted).toBe(false);
+            });
+        });
     });
 });

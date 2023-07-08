@@ -275,5 +275,29 @@ describe("Server", () => {
                 expect(server.money).toBe(1);
             });
         });
+
+        describe("When getServer().moneyMax is undefined", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, {});
+                server = new Server(ns, "n00dles");
+            });
+
+            it("should set 'maxMoney' to 0", () => {
+                expect(server.maxMoney).toBe(0);
+            });
+        });
+
+        describe("When getServer().moneyMax is 100", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, { moneyMax: 100 });
+                server = new Server(ns, "n00dles");
+            });
+
+            it("should set 'maxMoney' to 100", () => {
+                expect(server.maxMoney).toBe(100);
+            });
+        });
     });
 });

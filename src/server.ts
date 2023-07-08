@@ -11,6 +11,7 @@ export default class Server {
     private _isRooted: boolean;
     private _ip: string;
     private _maxRam: number;
+    private _maxMoney: number;
     private _minSecurityLevel: number;
     private _money: number;
 
@@ -30,6 +31,7 @@ export default class Server {
         this._maxRam = serverData.maxRam;
         this._minSecurityLevel = serverData.minDifficulty || 0;
         this._money = serverData.moneyAvailable || 0;
+        this._maxMoney = serverData.moneyMax || 0;
     }
 
     get cpuCores() {
@@ -62,6 +64,10 @@ export default class Server {
 
     get maxRam() {
         return this._maxRam;
+    }
+
+    get maxMoney() {
+        return this._maxMoney;
     }
 
     get money() {

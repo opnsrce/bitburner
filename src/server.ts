@@ -21,18 +21,14 @@ export default class Server {
         const serverData = this._ns.getServer(hostname);
 
         this._cpuCores = serverData.cpuCores;
-        this._isBackdoored = serverData.backdoorInstalled ? true : false;
-        this._isFtpPortOpen = serverData.ftpPortOpen ? true : false;
-        this._securityLevel = serverData.hackDifficulty
-            ? serverData.hackDifficulty
-            : 0;
+        this._isBackdoored = serverData.backdoorInstalled || false;
+        this._isFtpPortOpen = serverData.ftpPortOpen || false;
+        this._securityLevel = serverData.hackDifficulty || 0;
         this._isHttpPortOpen = serverData.httpPortOpen;
         this._isRooted = serverData.hasAdminRights;
         this._ip = serverData.ip;
         this._maxRam = serverData.maxRam;
-        this._minSecurityLevel = serverData.minDifficulty
-            ? serverData.minDifficulty
-            : 0;
+        this._minSecurityLevel = serverData.minDifficulty || 0;
         this._money = serverData.moneyAvailable || 0;
     }
 

@@ -364,18 +364,6 @@ describe("Server", () => {
             });
         });
 
-        describe("When getServer().purchasedByPlayer is undefined", () => {
-            beforeEach(() => {
-                ns = getNsMock();
-                mockNsGetServer(ns, { purchasedByPlayer: false });
-                server = new Server(ns, "n00dles");
-            });
-
-            it("should set 'isBackdoored' to false", () => {
-                expect(server.isBackdoored).toBe(false);
-            });
-        });
-
         describe("When getServer().purchasedByPlayer is false", () => {
             beforeEach(() => {
                 ns = getNsMock();
@@ -461,18 +449,6 @@ describe("Server", () => {
 
             it("should set 'serverGrowth' to 5", () => {
                 expect(server.serverGrowth).toBe(5);
-            });
-        });
-
-        describe("When getServer().smtpPortOpen is undefined", () => {
-            beforeEach(() => {
-                ns = getNsMock();
-                mockNsGetServer(ns, { smtpPortOpen: false });
-                server = new Server(ns, "n00dles");
-            });
-
-            it("should set 'isSmtpPortOpen' to false", () => {
-                expect(server.isSmtpPortOpen).toBe(false);
             });
         });
 

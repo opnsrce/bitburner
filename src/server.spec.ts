@@ -3,116 +3,84 @@ import getNsMock from "../test/ns-mock";
 import Server from "./server";
 import { NS, Server as BitBurnerServer } from "../types";
 
+const mockNsGetServer = (ns: NS, mockServer: Partial<BitBurnerServer>) => {
+    return jest
+        .spyOn(ns, "getServer")
+        .mockImplementation((host?: string | undefined) => {
+            return {
+                cpuCores: 1,
+                ftpPortOpen: false,
+                hasAdminRights: false,
+                hostname: host || "",
+                httpPortOpen: false,
+                ip: "192.168.11.1",
+                isConnectedTo: false,
+                maxRam: 32,
+                organizationName: "",
+                purchasedByPlayer: false,
+                ramUsed: 0,
+                smtpPortOpen: false,
+                sqlPortOpen: false,
+                sshPortOpen: false,
+                ...mockServer
+            };
+        });
+};
+
 describe("Server", () => {
     describe("constructor", () => {
+        let server: Server;
         let ns: NS;
 
-        describe("When a server hostname is defined", () => {
-            const serverName = "n00dles";
-            let server: Server;
+        describe("hostname", () => {
             beforeEach(() => {
                 ns = getNsMock();
-
-                jest.spyOn(ns, "getServer");
-
-                server = new Server(ns, serverName);
+                mockNsGetServer(ns, {});
+                server = new Server(ns, "n00dles");
             });
 
             afterEach(() => {
                 jest.clearAllMocks();
             });
 
-            it("should call ns.getServer with the server's hostname", () => {
-                expect(ns.getServer).toBeCalledWith(serverName);
+            it("should set 'hostname'", () => {
+                expect(server.hostname).toBe("n00dles");
+            });
+        });
+
+        describe("When getServer().backdoorInstalled is undefined", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, { backdoorInstalled: false });
+                server = new Server(ns, "n00dles");
             });
 
-            it("should set the server's hostname", () => {
-                expect(server.hostname).toBe(serverName);
+            it("should set 'isBackdoored' to false", () => {
+                expect(server.isBackdoored).toBe(false);
+            });
+        });
+
+        describe("When getServer().backdoorInstalled is false", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, { backdoorInstalled: false });
+                server = new Server(ns, "n00dles");
             });
 
-            describe("server.isBackdoored", () => {
-                describe("When server.backdoorInstalled is undefined", () => {
-                    const serverName = "n00dles";
-                    let server: Server;
+            it("should set 'isBackdoored' to false", () => {
+                expect(server.isBackdoored).toBe(false);
+            });
+        });
 
-                    beforeEach(() => {
-                        ns = getNsMock();
+        describe("When getServer().backdoorInstalled is true", () => {
+            beforeEach(() => {
+                ns = getNsMock();
+                mockNsGetServer(ns, { backdoorInstalled: true });
+                server = new Server(ns, "n00dles");
+            });
 
-                        jest.spyOn(ns, "getServer").mockImplementation(
-                            (host?: string | undefined) => {
-                                return {
-                                    name: serverName
-                                } as unknown as BitBurnerServer;
-                            }
-                        );
-
-                        server = new Server(ns, serverName);
-                    });
-
-                    afterEach(() => {
-                        jest.clearAllMocks();
-                    });
-
-                    it("should set server.isBackdoored to false", () => {
-                        expect(server.isBackdoored).toBe(false);
-                    });
-                });
-
-                describe("When server.backdoorInstalled is false", () => {
-                    const serverName = "n00dles";
-                    let server: Server;
-
-                    beforeEach(() => {
-                        ns = getNsMock();
-
-                        jest.spyOn(ns, "getServer").mockImplementation(
-                            (host?: string | undefined) => {
-                                return {
-                                    name: serverName,
-                                    backdoorInstalled: false
-                                } as unknown as BitBurnerServer;
-                            }
-                        );
-
-                        server = new Server(ns, serverName);
-                    });
-
-                    afterEach(() => {
-                        jest.clearAllMocks();
-                    });
-
-                    it("should set server.isBackdoored to false", () => {
-                        expect(server.isBackdoored).toBe(false);
-                    });
-                });
-
-                describe("When server.backdoorInstalled is true", () => {
-                    const serverName = "n00dles";
-                    let server: Server;
-
-                    beforeEach(() => {
-                        ns = getNsMock();
-
-                        jest.spyOn(ns, "getServer").mockImplementation(
-                            (host?: string | undefined) => {
-                                return {
-                                    name: serverName,
-                                    backdoorInstalled: true
-                                } as unknown as BitBurnerServer;
-                            }
-                        );
-
-                        server = new Server(ns, serverName);
-                    });
-
-                    afterEach(() => {
-                        jest.clearAllMocks();
-                    });
-
-                    it("should set server.isBackdoored to true", () => {
-                        expect(server.isBackdoored).toBe(true);
-                    });
-                });
+            it("should set 'isBackdoored' to true", () => {
+                expect(server.isBackdoored).toBe(true);
             });
         });
     });

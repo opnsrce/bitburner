@@ -11,6 +11,10 @@ export class ServerManager {
     }
 
     addServer(hostname: string) {
+        if (this._servers.has(hostname)) {
+            return this._servers.get(hostname);
+        }
+
         const server = new Server(this._ns, hostname);
         this._servers.set(hostname, server);
 

@@ -25,5 +25,24 @@ describe("ServerManager", () => {
                 expect(server).toStrictEqual(expectedServer);
             });
         });
+
+        describe("When the passed in server is already tracked", () => {
+            let ns: NS;
+            let serverManager: ServerManager;
+
+            beforeEach(() => {
+                ns = getNsMock();
+                serverManager = new ServerManager(ns);
+            });
+
+            it("should not update the list of servers", () => {
+                const server: any = serverManager.addServer("n00dles");
+                server.added = true;
+
+                const secondServer = serverManager.addServer("n00dles");
+
+                expect(server).toStrictEqual(secondServer);
+            });
+        });
     });
 });

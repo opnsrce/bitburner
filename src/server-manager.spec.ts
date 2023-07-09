@@ -45,4 +45,41 @@ describe("ServerManager", () => {
             });
         });
     });
+
+    describe("getServer", () => {
+        describe("When passed an existing server", () => {
+            let ns: NS;
+            let serverManager: ServerManager;
+            let server: Server;
+
+            beforeEach(() => {
+                ns = getNsMock();
+                serverManager = new ServerManager(ns);
+                server = new Server(ns, "n00dles");
+                serverManager.addServer("n00dles");
+            });
+
+            it("should return that server", () => {
+                const retrievedServer = serverManager.getServer("n00dles");
+
+                expect(retrievedServer).toStrictEqual(server);
+            });
+        });
+
+        describe("When passed an unknown server", () => {
+            let ns: NS;
+            let serverManager: ServerManager;
+
+            beforeEach(() => {
+                ns = getNsMock();
+                serverManager = new ServerManager(ns);
+            });
+
+            it("should return undefined", () => {
+                const retrievedServer = serverManager.getServer("n00dles");
+
+                expect(retrievedServer).toStrictEqual(undefined);
+            });
+        });
+    });
 });

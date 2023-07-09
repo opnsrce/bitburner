@@ -20,6 +20,10 @@ export class ServerManager {
 
         return server;
     }
+
+    getServer(hostname: string) {
+        return this._servers.get(hostname);
+    }
 }
 
 export default ServerManager;

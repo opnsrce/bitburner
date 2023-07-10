@@ -5,22 +5,20 @@ import getNsMock from "../test/ns-mock";
 import { NS } from "../types";
 
 describe("ServerManager", () => {
-    const getMockServerManager = (ns: NS) => {
-        const serverManager = new ServerManager(ns);
-
-        jest.spyOn(serverManager, "addServer");
-
-        return serverManager;
-    };
-
     describe("addServer", () => {
         describe("When the passed in server is not already tracked", () => {
-            it("should return the server that was added", () => {
-                const ns = getNsMock();
-                const expectedServer = new Server(ns, "new");
+            let ns: NS;
+            let serverManager: ServerManager;
+            let server: Server;
 
-                const serverManager = getMockServerManager(ns);
-                const server = serverManager.addServer("new");
+            beforeEach(() => {
+                ns = getNsMock();
+                serverManager = new ServerManager(ns);
+                server = serverManager.addServer("new");
+            });
+
+            it("should return the server that was added", () => {
+                const expectedServer = new Server(ns, "new");
 
                 expect(server).toStrictEqual(expectedServer);
             });

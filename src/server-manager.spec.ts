@@ -80,4 +80,71 @@ describe("ServerManager", () => {
             });
         });
     });
+
+    describe("uploadScriptToServer", () => {
+        describe("When passed an unknown server", () => {
+            let ns: NS;
+            let serverManager: ServerManager;
+
+            beforeEach(() => {
+                ns = getNsMock();
+                serverManager = new ServerManager(ns);
+            });
+
+            it("should throw an error", () => {
+                const error = new Error("'n00dles' is not a valid server name");
+
+                expect(
+                    async () =>
+                        await serverManager.uploadScriptToServer(
+                            "test",
+                            "n00dles"
+                        )
+                ).rejects.toThrow(error);
+            });
+        });
+
+        describe("When passed a single file and a valid server name", () => {
+            let ns: NS;
+            let serverManager: ServerManager;
+
+            beforeEach(() => {
+                ns = getNsMock();
+
+                jest.spyOn(ns, "scp");
+                serverManager = new ServerManager(ns);
+                serverManager.addServer("n00dles");
+            });
+
+            it("should upload that file to the server", async () => {
+                await serverManager.uploadScriptToServer("script", "n00dles");
+
+                expect(ns.scp).toHaveBeenCalledWith(
+                    "script",
+                    "n00dles",
+                    "home"
+                );
+            });
+        });
+
+        describe("When passed an array of files and a valid server name", () => {
+            let ns: NS;
+            let serverManager: ServerManager;
+
+            beforeEach(() => {
+                ns = getNsMock();
+
+                jest.spyOn(ns, "scp");
+                serverManager = new ServerManager(ns);
+                serverManager.addServer("n00dles");
+            });
+
+            it("should every file to the server", async () => {
+                const scripts = ["script1", "script2"];
+                await serverManager.uploadScriptToServer(scripts, "n00dles");
+
+                expect(ns.scp).toHaveBeenCalledWith(scripts, "n00dles", "home");
+            });
+        });
+    });
 });

@@ -85,6 +85,13 @@ const getNsMock = (args?: (string | number | boolean)[]) => {
                 _: positionals,
                 ...convertNumericValuesToNumbers(values)
             };
+        },
+        scp(
+            files: string | string[],
+            destination: string,
+            source?: string | undefined
+        ) {
+            return true;
         }
     };
 

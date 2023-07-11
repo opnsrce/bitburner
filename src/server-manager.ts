@@ -32,6 +32,10 @@ export class ServerManager {
 
         return await this._ns.scp(scripts, serverName, "home");
     }
+
+    isServerRunning(hostname: string) {
+        return this._ns.ps(hostname);
+    }
 }
 
 export default ServerManager;

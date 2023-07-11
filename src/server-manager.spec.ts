@@ -2,7 +2,7 @@ import { describe, expect, it } from "@jest/globals";
 import ServerManager from "./server-manager";
 import Server from "./server";
 import getNsMock from "../test/ns-mock";
-import { NS } from "../types";
+import { NS, ProcessInfo } from "../types";
 
 describe("ServerManager", () => {
     describe("addServer", () => {
@@ -144,6 +144,57 @@ describe("ServerManager", () => {
                 await serverManager.uploadScriptToServer(scripts, "n00dles");
 
                 expect(ns.scp).toHaveBeenCalledWith(scripts, "n00dles", "home");
+            });
+        });
+    });
+
+    describe("isServerRunning", () => {
+        describe("When a server has a script running on it", () => {
+            let ns: NS;
+            let serverManager: ServerManager;
+            const processInfo: ProcessInfo[] = [
+                {
+                    filename: "hack.js",
+                    threads: 4,
+                    args: [],
+                    pid: 1,
+                    temporary: false
+                }
+            ];
+
+            beforeEach(() => {
+                ns = getNsMock();
+
+                jest.spyOn(ns, "ps").mockImplementation(
+                    (host?: string | undefined) => processInfo
+                );
+                serverManager = new ServerManager(ns);
+                serverManager.addServer("n00dles");
+            });
+            it("Should return process info", () => {
+                expect(serverManager.isServerRunning("n00dles")).toStrictEqual(
+                    processInfo
+                );
+            });
+        });
+
+        describe("When a isn't running any scripts", () => {
+            let ns: NS;
+            let serverManager: ServerManager;
+
+            beforeEach(() => {
+                ns = getNsMock();
+
+                jest.spyOn(ns, "ps").mockImplementation(
+                    (host?: string | undefined) => []
+                );
+                serverManager = new ServerManager(ns);
+                serverManager.addServer("n00dles");
+            });
+            it("Should return an empty array", () => {
+                expect(serverManager.isServerRunning("n00dles")).toStrictEqual(
+                    []
+                );
             });
         });
     });

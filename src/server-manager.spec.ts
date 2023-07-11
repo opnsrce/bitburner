@@ -5,6 +5,7 @@ import getNsMock from "../test/ns-mock";
 import { NS, ProcessInfo } from "../types";
 
 describe("ServerManager", () => {
+    const serverNotFoundError = new Error("Server 'n00dles' does not exist.");
     describe("addServer", () => {
         describe("When the passed in server is not already tracked", () => {
             let ns: NS;
@@ -74,9 +75,8 @@ describe("ServerManager", () => {
             });
 
             it("should throw an error", () => {
-                const error = new Error("Server 'n00dles' does not exist.");
                 expect(() => serverManager.getServer("n00dles")).toThrowError(
-                    error
+                    serverNotFoundError
                 );
             });
         });
@@ -93,15 +93,13 @@ describe("ServerManager", () => {
             });
 
             it("should throw an error", () => {
-                const error = new Error("'n00dles' is not a valid server name");
-
                 expect(
                     async () =>
                         await serverManager.uploadScriptToServer(
                             "test",
                             "n00dles"
                         )
-                ).rejects.toThrow(error);
+                ).rejects.toThrow(serverNotFoundError);
             });
         });
 

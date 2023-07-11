@@ -31,12 +31,10 @@ export class ServerManager {
         throw new Error(`Server '${hostname}' does not exist.`);
     }
 
-    async uploadScriptToServer(scripts: string[] | string, serverName: string) {
-        if (!this._servers.has(serverName)) {
-            throw new Error(`'${serverName}' is not a valid server name`);
-        }
+    async uploadScriptToServer(scripts: string[] | string, hostname: string) {
+        this.getServer(hostname);
 
-        return await this._ns.scp(scripts, serverName, "home");
+        return await this._ns.scp(scripts, hostname, "home");
     }
 
     isServerRunning(hostname: string) {

@@ -148,6 +148,22 @@ describe("ServerManager", () => {
     });
 
     describe("isServerRunning", () => {
+        describe("When passed an invalid server name", () => {
+            let ns: NS;
+            let serverManager: ServerManager;
+
+            beforeEach(() => {
+                ns = getNsMock();
+
+                serverManager = new ServerManager(ns);
+            });
+
+            it("Should return throw an error", () => {
+                expect(() => serverManager.isServerRunning("n00dles")).toThrow(
+                    serverNotFoundError
+                );
+            });
+        });
         describe("When a server has a script running on it", () => {
             let ns: NS;
             let serverManager: ServerManager;
@@ -170,6 +186,7 @@ describe("ServerManager", () => {
                 serverManager = new ServerManager(ns);
                 serverManager.addServer("n00dles");
             });
+
             it("Should return process info", () => {
                 expect(serverManager.isServerRunning("n00dles")).toStrictEqual(
                     processInfo

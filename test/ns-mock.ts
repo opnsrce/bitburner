@@ -1,4 +1,4 @@
-import { BasicHGWOptions, NS, ParsedArgs } from "../types";
+import { BasicHGWOptions, NS, ParsedArgs, ProcessInfo } from "../types";
 import { parseArgs, ParseArgsConfig } from "node:util";
 import { FlagSchema } from "../types";
 import BitBurnerServerMock from "./bitburner-server-mock";
@@ -85,6 +85,17 @@ const getNsMock = (args?: (string | number | boolean)[]) => {
                 _: positionals,
                 ...convertNumericValuesToNumbers(values)
             };
+        },
+        ps(host?: string | undefined): ProcessInfo[] {
+            return [
+                {
+                    filename: "hack.js",
+                    threads: 4,
+                    args: [],
+                    pid: 1,
+                    temporary: false
+                }
+            ];
         },
         scp(
             files: string | string[],

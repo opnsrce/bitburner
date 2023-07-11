@@ -73,10 +73,11 @@ describe("ServerManager", () => {
                 serverManager = new ServerManager(ns);
             });
 
-            it("should return undefined", () => {
-                const retrievedServer = serverManager.getServer("n00dles");
-
-                expect(retrievedServer).toStrictEqual(undefined);
+            it("should throw an error", () => {
+                const error = new Error("Server 'n00dles' does not exist.");
+                expect(() => serverManager.getServer("n00dles")).toThrowError(
+                    error
+                );
             });
         });
     });

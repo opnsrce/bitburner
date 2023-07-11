@@ -22,7 +22,13 @@ export class ServerManager {
     }
 
     getServer(hostname: string) {
-        return this._servers.get(hostname);
+        const server = this._servers.get(hostname);
+
+        if (server) {
+            return server;
+        }
+
+        throw new Error(`Server '${hostname}' does not exist.`);
     }
 
     async uploadScriptToServer(scripts: string[] | string, serverName: string) {

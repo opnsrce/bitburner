@@ -4,12 +4,6 @@
     "service": "node",
     "dockerComposeFile": "./docker-compose.yml",
     "shutdownAction": "none",
-    "containerEnv": {
-        "SOURCE_CODE_DIR": "${localEnv:SOURCE_CODE_DIR}"
-    },
-    "remoteEnv": {
-        "SOURCE_CODE_DIR": "${localEnv:SOURCE_CODE_DIR}"
-    },
     "customizations": {
         "vscode": {
             "settings": {

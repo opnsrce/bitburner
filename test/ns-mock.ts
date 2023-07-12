@@ -80,6 +80,15 @@ const getNsMock = (args?: (string | number | boolean)[]) => {
         hack: (host: string, options?: BasicHGWOptions): Promise<number> => {
             return Promise.resolve(1);
         },
+        killall(host: string, safetyguard: boolean): boolean {
+            switch (host) {
+                case "on":
+                    return true;
+                case "off":
+                default:
+                    return false;
+            }
+        },
         weaken: (host: string, options?: BasicHGWOptions): Promise<number> => {
             return Promise.resolve(1);
         },

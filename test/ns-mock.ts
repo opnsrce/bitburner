@@ -1,3 +1,4 @@
+import { jest } from "@jest/globals";
 import { BasicHGWOptions, NS, ParsedArgs, ProcessInfo } from "../types";
 import { parseArgs, ParseArgsConfig } from "node:util";
 import { FlagSchema } from "../types";
@@ -7,13 +8,72 @@ const getNsMock = (args?: (string | number | boolean)[]) => {
     const nsMock: Partial<NS> = {
         args: args,
         getHostname: () => "",
-        getServerMaxMoney: () => 0,
-        getServerMoneyAvailable: () => 0,
-        getServerMinSecurityLevel: () => 1,
-        getServerSecurityLevel: () => 1,
-        getServer: (host: string) => {
-            return BitBurnerServerMock;
-        },
+        getServerMaxMoney: jest.fn((host: string) => {
+            switch (host) {
+                case "billions":
+                    return 1e9;
+                case "millions":
+                    return 1e6;
+                case "empty":
+                default:
+                    return 0;
+            }
+        }),
+        getServerMoneyAvailable: jest.fn((host: string) => {
+            switch (host) {
+                case "billions":
+                    return 1e9;
+                case "millions":
+                    return 1e6;
+                case "empty":
+                default:
+                    return 0;
+            }
+        }),
+        getServerMinSecurityLevel: jest.fn((host: string) => {
+            switch (host) {
+                case "billions":
+                    return 5;
+                case "millions":
+                    return 3;
+                case "empty":
+                default:
+                    return 1;
+            }
+        }),
+        getServerSecurityLevel: jest.fn((host: string) => {
+            switch (host) {
+                case "billions":
+                    return 100;
+                case "millions":
+                    return 50;
+                case "empty":
+                default:
+                    return 1;
+            }
+        }),
+        getServer: jest.fn((host?: string | undefined) => {
+            switch (host) {
+                case "billions":
+                    return {
+                        ...BitBurnerServerMock,
+                        moneyMax: 1e9,
+                        moneyAvailable: 1e9
+                    };
+                case "millions":
+                    return {
+                        ...BitBurnerServerMock,
+                        moneyMax: 1e6,
+                        moneyAvailable: 1e6
+                    };
+                default:
+                    return {
+                        ...BitBurnerServerMock,
+                        moneyMax: 0,
+                        moneyAvailable: 0
+                    };
+            }
+        }),
         grow: (host: string, options?: BasicHGWOptions): Promise<number> => {
             return Promise.resolve(1);
         },
@@ -87,15 +147,21 @@ const getNsMock = (args?: (string | number | boolean)[]) => {
             };
         },
         ps(host?: string | undefined): ProcessInfo[] {
-            return [
-                {
-                    filename: "hack.js",
-                    threads: 4,
-                    args: [],
-                    pid: 1,
-                    temporary: false
-                }
-            ];
+            switch (host) {
+                case "running":
+                    return [
+                        {
+                            filename: "hack.js",
+                            threads: 4,
+                            args: [],
+                            pid: 1,
+                            temporary: false
+                        }
+                    ];
+                case "notRunning":
+                default:
+                    return [];
+            }
         },
         scp(
             files: string | string[],

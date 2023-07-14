@@ -111,6 +111,21 @@ describe("parseNetScriptArgs", () => {
             );
         });
     });
+
+    describe("when --hackLimit is set to a number > 100", () => {
+        let ns: NS;
+        const args: (string | number | boolean)[] = ["--hackLimit", "200"];
+
+        beforeEach(() => {
+            ns = getNsMock(args);
+        });
+
+        it("should throw an error", () => {
+            expect(() => parseNetScriptArgs(ns)).toThrow(
+                Error("hackLimit cannot be greater than 100 percent")
+            );
+        });
+    });
 });
 
 describe("convertObjectToSchema", () => {

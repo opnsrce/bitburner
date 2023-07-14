@@ -124,30 +124,4 @@ describe("Hack Script", () => {
             expect(mockHack.mock.calls.length).toBe(1);
         });
     });
-
-    describe("When hackLimit is > 100", () => {
-        const ns = getNsMock(["--target", "n00dles", "--hackLimit", 200]);
-
-        let hackMock: jest.SpiedFunction<
-            (
-                host: string,
-                opts?: BasicHGWOptions | undefined
-            ) => Promise<number>
-        >;
-
-        beforeEach(() => {
-            hackMock = jest.spyOn(ns, "hack");
-            mockMoney(ns, 1, 1);
-        });
-
-        afterEach(() => {
-            jest.clearAllMocks();
-        });
-
-        it("should stop calling grow once the server's funds are empty", async () => {
-            await hack(ns);
-
-            expect(hackMock.mock.calls.length).toBe(1);
-        });
-    });
 });

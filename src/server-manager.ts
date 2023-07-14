@@ -1,7 +1,7 @@
 import { NS } from "../types";
 import Server from "./server";
 
-export class ServerManager {
+class ServerManager {
     private _servers: Map<string, Server>;
     private _ns: NS;
 

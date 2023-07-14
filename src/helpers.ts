@@ -41,6 +41,12 @@ export const parseNetScriptArgs = (ns: NS): ScriptConfig => {
     const schema = convertObjectToSchema(defaultScriptConfig);
     const parsedFlags = ns.flags(schema);
 
+    const { growLimit } = ns.flags(schema);
+
+    if ((growLimit as number) > 100) {
+        throw new Error("growLimit cannot be greater than 100 percent");
+    }
+
     return {
         args: parsedFlags._ as string[],
         target: parsedFlags.target as string,

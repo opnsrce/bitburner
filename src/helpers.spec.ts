@@ -96,6 +96,21 @@ describe("parseNetScriptArgs", () => {
             expect(result).toStrictEqual(expectedConfig);
         });
     });
+
+    describe("when --growLimit is set to a number > 100", () => {
+        let ns: NS;
+        const args: (string | number | boolean)[] = ["--growLimit", "200"];
+
+        beforeEach(() => {
+            ns = getNsMock(args);
+        });
+
+        it("should throw an error", () => {
+            expect(() => parseNetScriptArgs(ns)).toThrow(
+                Error("growLimit cannot be greater than 100 percent")
+            );
+        });
+    });
 });
 
 describe("convertObjectToSchema", () => {

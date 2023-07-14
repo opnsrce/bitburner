@@ -104,30 +104,4 @@ describe("Grow Script", () => {
             expect(growMock.mock.calls.length).toBe(1);
         });
     });
-
-    describe("When growLimit is > 100", () => {
-        const ns = getNsMock(["--target", "n00dles", "--growLimit", 200]);
-
-        let growMock: jest.SpiedFunction<
-            (
-                host: string,
-                opts?: BasicHGWOptions | undefined
-            ) => Promise<number>
-        >;
-
-        beforeEach(() => {
-            growMock = jest.spyOn(ns, "grow");
-            mockMoney(ns, 99, 100);
-        });
-
-        afterEach(() => {
-            jest.clearAllMocks();
-        });
-
-        it("should stop calling grow once the server's funds are full", async () => {
-            await grow(ns);
-
-            expect(growMock.mock.calls.length).toBe(1);
-        });
-    });
 });

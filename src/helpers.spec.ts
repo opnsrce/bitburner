@@ -152,7 +152,7 @@ describe("parseNetScriptArgs", () => {
 
         it("should throw an error", () => {
             expect(() => parseNetScriptArgs(ns)).toThrow(
-                Error("hackLimit cannot be greater than 100 percent")
+                Error("hackLimit must be a number between 0 and 100")
             );
         });
     });
@@ -182,7 +182,7 @@ describe("parseNetScriptArgs", () => {
 
         it("should throw an error", () => {
             expect(() => parseNetScriptArgs(ns)).toThrow(
-                Error("hackLimit cannot be less than 0 percent")
+                Error("hackLimit must be a number between 0 and 100")
             );
         });
     });

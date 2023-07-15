@@ -59,12 +59,10 @@ export const parseNetScriptArgs = (ns: NS): ScriptConfig => {
         throw new Error("hackLimit must be a number between 0 and 100");
     }
 
-    if (isNaN(weakenModifier as any)) {
-        throw new Error("weakenModifier must be a number greater than -1");
-    }
-
-    if ((weakenModifier as number) < 0) {
-        throw new Error("weakenModifier cannot be less than 0");
+    if (isNaN(weakenModifier as any) || (weakenModifier as number) < 0) {
+        throw new Error(
+            "weakenModifier must be a number greater than or equal to 0"
+        );
     }
 
     return {

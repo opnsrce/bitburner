@@ -197,7 +197,9 @@ describe("parseNetScriptArgs", () => {
 
         it("should throw an error", () => {
             expect(() => parseNetScriptArgs(ns)).toThrow(
-                Error("weakenModifier cannot be less than 0")
+                Error(
+                    "weakenModifier must be a number greater than or equal to 0"
+                )
             );
         });
     });
@@ -212,7 +214,9 @@ describe("parseNetScriptArgs", () => {
 
         it("should throw an error", () => {
             expect(() => parseNetScriptArgs(ns)).toThrow(
-                Error("weakenModifier must be a number greater than -1")
+                Error(
+                    "weakenModifier must be a number greater than or equal to 0"
+                )
             );
         });
     });

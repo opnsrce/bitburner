@@ -201,6 +201,21 @@ describe("parseNetScriptArgs", () => {
             );
         });
     });
+
+    describe("when --weakenModifier is not a number", () => {
+        let ns: NS;
+        const args: (string | number | boolean)[] = ["--weakenModifier", "bla"];
+
+        beforeEach(() => {
+            ns = getNsMock(args);
+        });
+
+        it("should throw an error", () => {
+            expect(() => parseNetScriptArgs(ns)).toThrow(
+                Error("weakenModifier must be a number greater than -1")
+            );
+        });
+    });
 });
 
 describe("convertObjectToSchema", () => {

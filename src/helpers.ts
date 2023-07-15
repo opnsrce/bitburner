@@ -47,6 +47,10 @@ export const parseNetScriptArgs = (ns: NS): ScriptConfig => {
         throw new Error("growLimit cannot be greater than 100 percent");
     }
 
+    if ((growLimit as number) < 0) {
+        throw new Error("growLimit cannot be less than 0 percent");
+    }
+
     if ((hackLimit as number) > 100) {
         throw new Error("hackLimit cannot be greater than 100 percent");
     }

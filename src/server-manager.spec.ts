@@ -211,4 +211,78 @@ describe("ServerManager", () => {
             });
         });
     });
+
+    describe("shutdownServer", () => {
+        describe("When a server is not running any script", () => {
+            let ns: NS;
+            let serverManager: ServerManager;
+            let result: Promise<boolean>;
+
+            beforeEach(() => {
+                ns = getNsMock();
+
+                serverManager = new ServerManager(ns);
+
+                serverManager.addServer("notRunning");
+
+                jest.spyOn(serverManager, "isServerRunning").mockImplementation(
+                    () => false
+                );
+
+                jest.spyOn(ns, "killall");
+
+                result = serverManager.shutdownServer("notRunning");
+            });
+
+            it("Should resolve immediately", async () => {
+                expect(result).resolves.toBe(true);
+            });
+
+            it("Should only call isServerRunning once", async () => {
+                expect(serverManager.isServerRunning).toBeCalledTimes(1);
+            });
+
+            it("Should not call ns.killall", async () => {
+                expect(ns.killall).not.toBeCalled();
+            });
+        });
+
+        describe("When a server is running a script", () => {
+            let ns: NS;
+            let serverManager: ServerManager;
+            let result: Promise<boolean>;
+
+            beforeEach(() => {
+                ns = getNsMock();
+
+                jest.spyOn(ns, "killall");
+
+                serverManager = new ServerManager(ns);
+
+                jest.spyOn(serverManager, "isServerRunning")
+                    .mockImplementationOnce(() => true)
+                    .mockImplementationOnce(() => true)
+                    .mockImplementationOnce(() => true)
+                    .mockImplementation(() => false);
+
+                serverManager.addServer("running");
+
+                jest.spyOn(serverManager, "isServerRunning");
+
+                result = serverManager.shutdownServer("running");
+            });
+
+            it("Should call isServerRunning in a loop", async () => {
+                expect(serverManager.isServerRunning).toBeCalledTimes(4);
+            });
+
+            it("Should attempt to kill all running scripts", async () => {
+                expect(ns.killall).toBeCalledTimes(3);
+            });
+
+            it("Should eventually resolve", async () => {
+                expect(result).resolves.toBe(true);
+            });
+        });
+    });
 });

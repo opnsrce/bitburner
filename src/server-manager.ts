@@ -42,6 +42,16 @@ class ServerManager {
 
         return this._ns.ps(hostname).length > 0;
     }
+
+    shutdownServer(hostname: string): Promise<boolean> {
+        return new Promise((resolve) => {
+            while (this.isServerRunning(hostname)) {
+                this._ns.killall(hostname);
+            }
+
+            resolve(true);
+        });
+    }
 }
 
 export default ServerManager;

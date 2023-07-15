@@ -127,6 +127,21 @@ describe("parseNetScriptArgs", () => {
         });
     });
 
+    describe("when --hackLimit is set to a number < 0", () => {
+        let ns: NS;
+        const args: (string | number | boolean)[] = ["--hackLimit", "-5"];
+
+        beforeEach(() => {
+            ns = getNsMock(args);
+        });
+
+        it("should throw an error", () => {
+            expect(() => parseNetScriptArgs(ns)).toThrow(
+                Error("hackLimit cannot be less than 0 percent")
+            );
+        });
+    });
+
     describe("when --weakenModifier is set to a number < 0", () => {
         let ns: NS;
         const args: (string | number | boolean)[] = ["--weakenModifier", "-1"];

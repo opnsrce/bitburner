@@ -68,8 +68,8 @@ export const parseNetScriptArgs = (ns: NS): ScriptConfig => {
     return {
         args: parsedFlags._ as string[],
         target: parsedFlags.target as string,
-        growLimit: parsedFlags.growLimit as number,
-        hackLimit: parsedFlags.hackLimit as number,
+        growLimit: (parsedFlags.growLimit as number) * 0.01,
+        hackLimit: (parsedFlags.hackLimit as number) * 0.01,
         weakenModifier: parsedFlags.weakenModifier as number
     };
 };

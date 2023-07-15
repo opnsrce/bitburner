@@ -10,8 +10,7 @@ import { parseNetScriptArgs } from "./helpers";
 export const main = async (ns: NS) => {
     const { target, growLimit } = parseNetScriptArgs(ns);
     const hostname = target || ns.getHostname();
-    const limitModifier = Math.min(growLimit, 100) * 0.01;
-    const maxMoney = ns.getServerMaxMoney(hostname) * limitModifier;
+    const maxMoney = ns.getServerMaxMoney(hostname) * growLimit;
 
     let currentMoney = ns.getServerMoneyAvailable(hostname);
 

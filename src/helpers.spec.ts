@@ -9,6 +9,12 @@ import { NS, ScriptConfig } from "../types";
 
 import defaultScriptConfig from "./default-script-config";
 
+const parsedDefaultScriptConfig = {
+    ...defaultScriptConfig,
+    growLimit: 1,
+    hackLimit: 1
+};
+
 describe("findServers", () => {
     describe("When the root is defined as 'home'", () => {
         it("should recursively map the network from 'home'", () => {
@@ -52,10 +58,10 @@ describe("parseNetScriptArgs", () => {
             ns = getNsMock(args);
         });
 
-        it("should return the default script config", () => {
+        it("should parse the default script config", () => {
             const result = parseNetScriptArgs(ns);
 
-            expect(result).toStrictEqual(defaultScriptConfig);
+            expect(result).toStrictEqual(parsedDefaultScriptConfig);
         });
     });
 
@@ -70,7 +76,7 @@ describe("parseNetScriptArgs", () => {
         it("should set the 'target' property in the script config", () => {
             const result = parseNetScriptArgs(ns);
             const expectedConfig: ScriptConfig = {
-                ...defaultScriptConfig,
+                ...parsedDefaultScriptConfig,
                 target: "n00dles"
             };
 
@@ -89,11 +95,25 @@ describe("parseNetScriptArgs", () => {
         it("should store the extra parameters in the 'args' property", () => {
             const result = parseNetScriptArgs(ns);
             const expectedConfig: ScriptConfig = {
-                ...defaultScriptConfig,
+                ...parsedDefaultScriptConfig,
                 args: ["extra", "more"]
             };
 
             expect(result).toStrictEqual(expectedConfig);
+        });
+    });
+
+    describe("when --growLimit is a valid value", () => {
+        let ns: NS;
+        const args: (string | number | boolean)[] = ["--growLimit", "1"];
+
+        beforeEach(() => {
+            ns = getNsMock(args);
+        });
+
+        it("should convert the value to a decimal (hudredths place)", () => {
+            const result = parseNetScriptArgs(ns);
+            expect(result.growLimit).toBe(0.01);
         });
     });
 

@@ -14,10 +14,7 @@ export const main = async (ns: NS) => {
 
     let currentSecurityLevel = ns.getServerSecurityLevel(hostname);
 
-    while (
-        currentSecurityLevel >
-        minSecurityLevel + Math.max(0, weakenModifier)
-    ) {
+    while (currentSecurityLevel > minSecurityLevel + weakenModifier) {
         await ns.weaken(hostname);
         currentSecurityLevel = ns.getServerSecurityLevel(hostname);
     }

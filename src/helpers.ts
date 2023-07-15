@@ -41,7 +41,7 @@ export const parseNetScriptArgs = (ns: NS): ScriptConfig => {
     const schema = convertObjectToSchema(defaultScriptConfig);
     const parsedFlags = ns.flags(schema);
 
-    const { growLimit, hackLimit } = ns.flags(schema);
+    const { growLimit, hackLimit, weakenModifier } = ns.flags(schema);
 
     if ((growLimit as number) > 100) {
         throw new Error("growLimit cannot be greater than 100 percent");
@@ -49,6 +49,10 @@ export const parseNetScriptArgs = (ns: NS): ScriptConfig => {
 
     if ((hackLimit as number) > 100) {
         throw new Error("hackLimit cannot be greater than 100 percent");
+    }
+
+    if ((weakenModifier as number) < 0) {
+        throw new Error("weakenModifier cannot be less than 0");
     }
 
     return {

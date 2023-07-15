@@ -107,7 +107,7 @@ describe("parseNetScriptArgs", () => {
 
         it("should throw an error", () => {
             expect(() => parseNetScriptArgs(ns)).toThrow(
-                Error("growLimit cannot be greater than 100 percent")
+                Error("growLimit must be a number between 0 and 100")
             );
         });
     });
@@ -137,7 +137,7 @@ describe("parseNetScriptArgs", () => {
 
         it("should throw an error", () => {
             expect(() => parseNetScriptArgs(ns)).toThrow(
-                Error("growLimit cannot be less than 0 percent")
+                Error("growLimit must be a number between 0 and 100")
             );
         });
     });

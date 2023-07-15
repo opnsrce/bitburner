@@ -43,16 +43,12 @@ export const parseNetScriptArgs = (ns: NS): ScriptConfig => {
 
     const { growLimit, hackLimit, weakenModifier } = ns.flags(schema);
 
-    if (isNaN(growLimit as any)) {
+    if (
+        isNaN(growLimit as any) ||
+        (growLimit as number) < 0 ||
+        (growLimit as number) > 100
+    ) {
         throw new Error("growLimit must be a number between 0 and 100");
-    }
-
-    if ((growLimit as number) > 100) {
-        throw new Error("growLimit cannot be greater than 100 percent");
-    }
-
-    if ((growLimit as number) < 0) {
-        throw new Error("growLimit cannot be less than 0 percent");
     }
 
     if (isNaN(hackLimit as any)) {

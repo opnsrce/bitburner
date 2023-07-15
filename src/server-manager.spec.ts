@@ -187,10 +187,8 @@ describe("ServerManager", () => {
                 serverManager.addServer("n00dles");
             });
 
-            it("Should return process info", () => {
-                expect(serverManager.isServerRunning("n00dles")).toStrictEqual(
-                    processInfo
-                );
+            it("Should return true", () => {
+                expect(serverManager.isServerRunning("n00dles")).toBe(true);
             });
         });
 
@@ -207,10 +205,9 @@ describe("ServerManager", () => {
                 serverManager = new ServerManager(ns);
                 serverManager.addServer("n00dles");
             });
-            it("Should return an empty array", () => {
-                expect(serverManager.isServerRunning("n00dles")).toStrictEqual(
-                    []
-                );
+
+            it("Should return false", () => {
+                expect(serverManager.isServerRunning("n00dles")).toBe(false);
             });
         });
     });

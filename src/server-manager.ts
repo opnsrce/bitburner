@@ -40,7 +40,7 @@ class ServerManager {
     isServerRunning(hostname: string) {
         this.getServer(hostname);
 
-        return this._ns.ps(hostname);
+        return this._ns.ps(hostname).length > 0;
     }
 }
 
